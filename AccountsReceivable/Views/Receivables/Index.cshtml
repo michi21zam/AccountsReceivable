@@ -90,8 +90,8 @@
                 {
                     <tr>
                         <td>@item.AccountNumber</td>
-                        <td>@item.Customer?.Name</td>
-                        <td>@item.Employee?.FirstName @item.Employee?.LastName</td>
+                        <td>@item.CustomerName</td>
+                        <td>@item.EmployeeName</td>
                         <td>@item.IssueDate.ToString("MMM dd, yyyy")</td>
                         <td>@item.DueDate.ToString("MMM dd, yyyy")</td>
                         <td>@String.Format("{0:C}", item.TotalAmount)</td>

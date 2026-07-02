@@ -66,6 +66,18 @@ namespace AccountsReceivable.Controllers
             var receivables = await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                .Select(r => new ReceivableListItem
+                {
+                    ReceivableId = r.ReceivableId,
+                    AccountNumber = r.AccountNumber,
+                    CustomerName = r.Customer.Name,
+                    EmployeeName = r.Employee.FirstName + " " + r.Employee.LastName,
+                    IssueDate = r.IssueDate,
+                    DueDate = r.DueDate,
+                    TotalAmount = r.TotalAmount,
+                    Balance = r.TotalAmount - (r.Payments.Where(p => p.IsActive).Sum(p => (decimal?)p.Amount) ?? 0m),
+                    Status = r.Status
+                })
                 .ToListAsync();
 
             var vm = new ReceivableIndexViewModel
@@ -99,7 +111,7 @@ namespace AccountsReceivable.Controllers
             var receivable = await db.Receivables
                 .Include(r => r.Customer)
                 .Include(r => r.Employee)
-                .Include("Payments")
+                .Include(r => r.Payments)
                 .FirstOrDefaultAsync(r => r.ReceivableId == id.Value);
 
             if (receivable == null)
@@ -142,7 +154,12 @@ namespace AccountsReceivable.Controllers
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var receivable = await db.Receivables.FindAsync(id.Value);
+            var receivable = await db.Receivables
+                .Include(r => r.Customer)
+                .Include(r => r.Employee)
+                .Include(r=> r.Payments)
+                .FirstOrDefaultAsync(r => r.ReceivableId == id.Value);
+
             if (receivable == null)
                 return HttpNotFound();
 

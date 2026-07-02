@@ -39,15 +39,15 @@
             <div class="float-field">
                 <label>Customer</label>
                 @Html.DropDownListFor(m => m.CustomerId,
-                    new SelectList((IEnumerable<Customer>)ViewBag.Customers, "CustomerId", "Name", Model.CustomerId),
-                    new { @class = "float-select" })
+                         new SelectList((IEnumerable<Customer>)ViewBag.Customers, "CustomerId", "Name", Model.CustomerId),
+                         new { @class = "float-select" })
                 @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "field-error" })
             </div>
             <div class="float-field">
                 <label>Employee</label>
                 @Html.DropDownListFor(m => m.EmployeeId,
-                    new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName", Model.EmployeeId),
-                    new { @class = "float-select" })
+                         new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName", Model.EmployeeId),
+                         new { @class = "float-select" })
                 @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "field-error" })
             </div>
             <div class="float-field">
@@ -81,3 +81,68 @@
         </div>
     </div>
 }
+
+@* ── PAYMENTS TABLE ────────────────────────────────── *@
+<div class="page-header-section page-header-section--compact">
+    <div>
+        <a class="btn-create btn-create--compact" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
+            <i class="fa fa-plus"></i> ADD PAYMENT
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Payments</div>
+        <h2 class="page-title page-title--small">Payment <span>History</span></h2>
+    </div>
+</div>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Payment Date</th>
+                <th>Amount</th>
+                <th>Notes</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Payments != null && Model.Payments.Any(p => p.IsActive))
+            {
+                foreach (var payment in Model.Payments.Where(p => p.IsActive).OrderByDescending(p => p.PaymentDate))
+                {
+                    <tr>
+                        <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
+                        <td>@String.Format("{0:C}", payment.Amount)</td>
+                        <td>@payment.Notes</td>
+                        <td class="text-center">
+                            <a class="action-btn action-edit"
+                               href="@Url.Action("Edit", "Payments", new { id = payment.PaymentId })"
+                               title="Edit">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                            @using (Html.BeginForm("Delete", "Payments", FormMethod.Post,
+                                new { @class = "inline-form", onsubmit = "return confirm('Delete this payment?');" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", payment.PaymentId)
+                                <button type="submit" class="action-btn action-delete" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="no-data-cell">
+                        <i class="fa fa-hand-holding-dollar no-data-icon"></i>
+                        No payments recorded yet.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

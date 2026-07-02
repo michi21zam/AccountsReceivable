@@ -35,6 +35,7 @@
             <label>Customer</label>
             <input class="float-input" value="@Model.Customer?.Name" readonly />
         </div>
+
         <div class="float-field">
             <label>Employee</label>
             <input class="float-input" value="@Model.Employee?.FirstName @Model.Employee?.LastName" readonly />
@@ -104,22 +105,25 @@
                         <td>@String.Format("{0:C}", payment.Amount)</td>
                         <td>@payment.Notes</td>
                         <td class="text-center">
-                            <a class="action-btn action-edit"
-                               href="@Url.Action("Edit", "Payments", new { id = payment.PaymentId })"
-                               title="Edit">
-                                <i class="fa fa-pen"></i>
+                            <!-- Botón habilitado: View -->
+                            <a class="action-btn action-view"
+                               href="@Url.Action("Details", "Payments", new { id = payment.PaymentId })"
+                               title="View">
+                                <i class="fa fa-eye"></i>
                             </a>
-                            @using (Html.BeginForm("Delete", "Payments", FormMethod.Post,
-                                new { @class = "inline-form", onsubmit = "return confirm('Delete this payment?');" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("id", payment.PaymentId)
-                                <button type="submit" class="action-btn action-delete" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            }
+
+                            <!-- Botón Edit en readonly (disabled) -->
+                            <button type="button" class="action-btn action-edit" title="Edit" disabled>
+                                <i class="fa fa-pen"></i>
+                            </button>
+
+                            <!-- Botón Delete en readonly (disabled) -->
+                            <button type="button" class="action-btn action-delete" title="Delete" disabled>
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
+
                 }
             }
             else

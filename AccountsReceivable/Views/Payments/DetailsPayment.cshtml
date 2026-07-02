@@ -1,0 +1,40 @@
+@model AccountsReceivable.Models.Payment
+
+@{
+    ViewBag.Title = "Payment Details";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Payments</div>
+        <h1 class="page-title"><span>Details</span> of payment</h1>
+    </div>
+    <div class="header-spacer"></div>
+</div>
+
+<div class="form-page-card">
+    <div class="form-page-header">
+        <i class="fa fa-circle-info"></i> Payment Information
+    </div>
+
+    <div class="form-row-grid">
+        <div class="float-field">
+            <label>Payment Date</label>
+            <input class="float-input" value="@Model.PaymentDate.ToString("MMM dd, yyyy")" readonly />
+        </div>
+        <div class="float-field">
+            <label>Amount</label>
+            <input class="float-input" value="@String.Format("{0:C}", Model.Amount)" readonly />
+        </div>
+        <div class="float-field grid-span-2">
+            <label>Notes</label>
+            <input class="float-input" value="@Model.Notes" readonly />
+        </div>
+    </div>
+</div>
+

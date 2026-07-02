@@ -5,7 +5,8 @@ namespace AccountsReceivable.Models
 {
     public class ReceivableIndexViewModel
     {
-        public IEnumerable<Receivable> Receivables { get; set; }
+        // Ahora apunta al modelo plano ReceivableListItem
+        public IEnumerable<ReceivableListItem> Receivables { get; set; }
 
         // Filters
         public string AccountNumber { get; set; }

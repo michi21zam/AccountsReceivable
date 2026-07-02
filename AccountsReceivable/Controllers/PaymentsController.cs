@@ -117,6 +117,23 @@ namespace AccountsReceivable.Controllers
             return RedirectToAction("Details", "Receivables", new { id = payment?.ReceivableId });
         }
 
+        // GET: Payments/Details/5
+        public async Task<ActionResult> Details(int? id)
+        {
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var payment = await db.Payments
+                .Include(p => p.Receivable) 
+                .FirstOrDefaultAsync(p => p.PaymentId == id.Value && p.IsActive);
+
+            if (payment == null)
+                return HttpNotFound();
+
+            return View("DetailsPayment", payment); 
+        }
+
+
         // Reloads the receivable with its active payments and updates its Status
         private async Task RecalculateReceivableStatus(int receivableId)
         {
