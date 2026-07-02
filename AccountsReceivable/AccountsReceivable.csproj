@@ -117,6 +117,7 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Receivable.cs" />
+    <Compile Include="Models\ReceivableDetailsViewModel.cs" />
     <Compile Include="Models\ReceivableIndexViewModel.cs" />
     <Compile Include="Models\ReceivableListItem.cs" />
     <Compile Include="Models\ReceivableStatus.cs" />

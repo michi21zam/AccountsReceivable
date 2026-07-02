@@ -1,4 +1,4 @@
-@model AccountsReceivable.Models.Receivable
+@model AccountsReceivable.Models.ReceivableDetailsViewModel
 @using AccountsReceivable.Models
 
 @{
@@ -33,12 +33,12 @@
         </div>
         <div class="float-field">
             <label>Customer</label>
-            <input class="float-input" value="@Model.Customer?.Name" readonly />
+            <input class="float-input" value="@Model.CustomerName" readonly />
         </div>
 
         <div class="float-field">
             <label>Employee</label>
-            <input class="float-input" value="@Model.Employee?.FirstName @Model.Employee?.LastName" readonly />
+            <input class="float-input" value="@Model.EmployeeName" readonly />
         </div>
         <div class="float-field">
             <label>Issue Date</label>

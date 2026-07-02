@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -103,6 +103,7 @@ namespace AccountsReceivable.Controllers
         }
 
         // GET: Receivables/Details/5
+        // GET: Receivables/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (!id.HasValue)
@@ -117,7 +118,26 @@ namespace AccountsReceivable.Controllers
             if (receivable == null)
                 return HttpNotFound();
 
-            return View(receivable);
+            // Mapear a ViewModel para evitar proxies
+            var vm = new ReceivableDetailsViewModel
+            {
+                ReceivableId = receivable.ReceivableId,
+                AccountNumber = receivable.AccountNumber,
+                CustomerName = receivable.Customer?.Name,
+                EmployeeName = receivable.Employee != null
+                    ? $"{receivable.Employee.FirstName} {receivable.Employee.LastName}"
+                    : null,
+                IssueDate = receivable.IssueDate,
+                DueDate = receivable.DueDate,
+                TotalAmount = receivable.TotalAmount,
+                PaidAmount = receivable.PaidAmount,
+                Balance = receivable.Balance,
+                Status = receivable.Status.ToString(),
+                Description = receivable.Description,
+                Payments = receivable.Payments
+            };
+
+            return View(vm);
         }
 
         // GET: Receivables/Create
