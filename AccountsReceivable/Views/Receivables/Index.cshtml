@@ -1,0 +1,182 @@
+@model AccountsReceivable.Models.ReceivableIndexViewModel
+@using AccountsReceivable.Models
+
+@{
+    ViewBag.Title = "Accounts Receivable";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-create" href="@Url.Action("Create", "Receivables")">
+            <i class="fa fa-plus"></i> CREATE NEW
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Accounts Receivable</div>
+        <h1 class="page-title"><span>Review</span> accounts receivable</h1>
+    </div>
+    <div class="header-spacer"></div>
+</div>
+
+@using (Html.BeginForm("Index", "Receivables", FormMethod.Get))
+{
+    <div class="filter-card">
+        <div class="filter-field">
+            <label>Account Number</label>
+            @Html.TextBoxFor(m => m.AccountNumber, new { placeholder = "AR-001" })
+        </div>
+        <div class="filter-field">
+            <label>Customer</label>
+            @Html.DropDownListFor(m => m.CustomerId,
+                new SelectList(Model.Customers, "CustomerId", "Name", Model.CustomerId), "All customers")
+        </div>
+        <div class="filter-field">
+            <label>Employee</label>
+            @Html.DropDownListFor(m => m.EmployeeId,
+                new SelectList(Model.Employees, "EmployeeId", "FirstName", Model.EmployeeId), "All employees")
+        </div>
+        <div class="filter-field filter-field--small">
+            <label>Status</label>
+            @Html.DropDownListFor(m => m.Status,
+                new SelectList(Enum.GetValues(typeof(ReceivableStatus))), "All statuses")
+        </div>
+        <div class="filter-field">
+            <label>Date From</label>
+            @Html.TextBoxFor(m => m.DateFrom, "{0:yyyy-MM-dd}", new { type = "date" })
+        </div>
+        <div class="filter-field">
+            <label>Date To</label>
+            @Html.TextBoxFor(m => m.DateTo, "{0:yyyy-MM-dd}", new { type = "date" })
+        </div>
+        <div class="filter-field filter-field--small">
+            <label>Amount From</label>
+            @Html.TextBoxFor(m => m.AmountFrom, new { type = "number", step = "0.01", placeholder = "0.00" })
+        </div>
+        <div class="filter-field filter-field--small">
+            <label>Amount To</label>
+            @Html.TextBoxFor(m => m.AmountTo, new { type = "number", step = "0.01", placeholder = "0.00" })
+        </div>
+
+        <div class="filter-actions">
+            <button type="submit" class="btn-filter-action" title="Search">
+                <i class="fa fa-search"></i>
+            </button>
+            <a href="@Url.Action("Index", "Receivables")" class="btn-filter-action btn-filter-reset" title="Reset">
+                <i class="fa fa-rotate-right"></i>
+            </a>
+        </div>
+    </div>
+}
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Account #</th>
+                <th>Customer</th>
+                <th>Employee</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+                <th>Total</th>
+                <th>Balance</th>
+                <th>Status</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Receivables != null && Model.Receivables.Any())
+            {
+                foreach (var item in Model.Receivables)
+                {
+                    <tr>
+                        <td>@item.AccountNumber</td>
+                        <td>@item.Customer?.Name</td>
+                        <td>@item.Employee?.FirstName @item.Employee?.LastName</td>
+                        <td>@item.IssueDate.ToString("MMM dd, yyyy")</td>
+                        <td>@item.DueDate.ToString("MMM dd, yyyy")</td>
+                        <td>@String.Format("{0:C}", item.TotalAmount)</td>
+                        <td>@String.Format("{0:C}", item.Balance)</td>
+                        <td>
+                            @if (item.Status == ReceivableStatus.Paid)
+                            {
+                                <span class="badge-paid">Paid</span>
+                            }
+                            else if (item.Status == ReceivableStatus.PartiallyPaid)
+                            {
+                                <span class="badge-partial">Partially Paid</span>
+                            }
+                            else
+                            {
+                                <span class="badge-pending">Pending</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a class="action-btn action-view" href="@Url.Action("Details", "Receivables", new { id = item.ReceivableId })" title="Details">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a class="action-btn action-edit" href="@Url.Action("Edit", "Receivables", new { id = item.ReceivableId })" title="Edit">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                            @using (Html.BeginForm("Delete", "Receivables", FormMethod.Post,
+                                new { @class = "inline-form", onsubmit = "return confirm('Delete this receivable?');" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", item.ReceivableId)
+                                <button type="submit" class="action-btn action-delete" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="no-data-cell">
+                        <i class="fa fa-file-invoice no-data-icon"></i>
+                        No accounts receivable found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        Func<int, string> pageUrl = p => Url.Action("Index", new
+        {
+            page = p,
+            pageSize = Model.PageSize,
+            accountNumber = Model.AccountNumber,
+            customerId = Model.CustomerId,
+            employeeId = Model.EmployeeId,
+            status = Model.Status,
+            dateFrom = Model.DateFrom != null ? Model.DateFrom.Value.ToString("yyyy-MM-dd") : null,
+            dateTo = Model.DateTo != null ? Model.DateTo.Value.ToString("yyyy-MM-dd") : null,
+            amountFrom = Model.AmountFrom,
+            amountTo = Model.AmountTo
+        });
+    }
+
+    <div class="pagination-wrap">
+        <a class="page-btn @(Model.Page <= 1 ? "disabled" : "")" href="@(Model.Page > 1 ? pageUrl(1) : "#")">
+            <i class="fa fa-angles-left"></i>
+        </a>
+        <a class="page-btn @(Model.Page <= 1 ? "disabled" : "")" href="@(Model.Page > 1 ? pageUrl(Model.Page - 1) : "#")">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        @for (int p = Math.Max(1, Model.Page - 2); p <= Math.Min(Model.TotalPages, Model.Page + 2); p++)
+        {
+            <a class="page-btn @(p == Model.Page ? "active" : "")" href="@pageUrl(p)">@p</a>
+        }
+        <a class="page-btn @(Model.Page >= Model.TotalPages ? "disabled" : "")" href="@(Model.Page < Model.TotalPages ? pageUrl(Model.Page + 1) : "#")">
+            <i class="fa fa-angle-right"></i>
+        </a>
+        <a class="page-btn @(Model.Page >= Model.TotalPages ? "disabled" : "")" href="@(Model.Page < Model.TotalPages ? pageUrl(Model.TotalPages) : "#")">
+            <i class="fa fa-angles-right"></i>
+        </a>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:13px;padding:8px 0 14px;">
+        Page @Model.Page of @(Model.TotalPages == 0 ? 1 : Model.TotalPages) &mdash; @Model.TotalCount record(s)
+    </p>
+</div>

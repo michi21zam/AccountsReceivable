@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Accounts Receivable</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fontawesome/fontawesome-local.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%230b5566'>$</text></svg>" />
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;height:60px;padding:0 24px;width:100%;">
+            <a class="navbar-brand" href="@Url.Action("Index","Receivables")">
+                <i class="fa fa-file-invoice-dollar" style="color:var(--teal);margin-right:8px;"></i>Accounts Receivable
+            </a>
+            <ul style="margin:0 0 0 32px;display:flex;list-style:none;gap:4px;padding:0;">
+                <li>
+                    <a href="@Url.Action("Index","Receivables")"
+                       style="padding:8px 14px;border-radius:8px;font-weight:600;font-size:14px;color:var(--text);text-decoration:none;transition:color .2s;"
+                       onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">
+                        <i class="fa fa-file-invoice" style="margin-right:6px;"></i>Receivables
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Customers")"
+                       style="padding:8px 14px;border-radius:8px;font-weight:600;font-size:14px;color:var(--text);text-decoration:none;transition:color .2s;"
+                       onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">
+                        <i class="fa fa-users" style="margin-right:6px;"></i>Customers
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Employees")"
+                       style="padding:8px 14px;border-radius:8px;font-weight:600;font-size:14px;color:var(--text);text-decoration:none;transition:color .2s;"
+                       onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">
+                        <i class="fa fa-user-tie" style="margin-right:6px;"></i>Employees
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+            <p>&copy; @DateTime.Now.Year &mdash; Accounts Receivable &mdash; All rights reserved</p>
+        </footer>
+    </div>
+</body>
+</html>

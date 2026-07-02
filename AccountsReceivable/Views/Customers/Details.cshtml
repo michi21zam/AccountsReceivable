@@ -1,0 +1,58 @@
+@model AccountsReceivable.Models.Customer
+
+@{
+    ViewBag.Title = "Customer Details";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Index", "Customers")">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Customers</div>
+        <h1 class="page-title"><span>Details</span> of @Model.Name</h1>
+    </div>
+    <div class="header-actions">
+        <a class="btn-create btn-create--compact" href="@Url.Action("Edit", "Customers", new { id = Model.CustomerId })">
+            <i class="fa fa-pen"></i> EDIT
+        </a>
+    </div>
+</div>
+
+<div class="form-page-card">
+    <div class="form-page-header">
+        <i class="fa fa-circle-info"></i> Customer Information
+    </div>
+    <div class="form-row-grid">
+        <div class="float-field">
+            <label>Customer Code</label>
+            <input class="float-input" value="@Model.CustomerCode" readonly />
+        </div>
+        <div class="float-field grid-span-2">
+            <label>Name</label>
+            <input class="float-input" value="@Model.Name" readonly />
+        </div>
+        <div class="float-field">
+            <label>Tax Id</label>
+            <input class="float-input" value="@Model.TaxId" readonly />
+        </div>
+        <div class="float-field">
+            <label>Email</label>
+            <input class="float-input" value="@Model.Email" readonly />
+        </div>
+        <div class="float-field">
+            <label>Phone</label>
+            <input class="float-input" value="@Model.Phone" readonly />
+        </div>
+        <div class="float-field grid-span-2">
+            <label>Address</label>
+            <input class="float-input" value="@Model.Address" readonly />
+        </div>
+        <div class="float-field">
+            <label>Credit Limit</label>
+            <input class="float-input" value="@String.Format("{0:C}", Model.CreditLimit)" readonly />
+        </div>
+    </div>
+</div>

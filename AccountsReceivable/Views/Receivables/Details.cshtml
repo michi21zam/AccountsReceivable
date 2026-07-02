@@ -1,0 +1,136 @@
+@model AccountsReceivable.Models.Receivable
+@using AccountsReceivable.Models
+
+@{
+    ViewBag.Title = "Receivable Details";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Index", "Receivables")">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Accounts Receivable</div>
+        <h1 class="page-title"><span>Details</span> of account #@Model.AccountNumber</h1>
+    </div>
+    <div class="header-actions">
+        <a class="btn-create btn-create--compact" href="@Url.Action("Edit", "Receivables", new { id = Model.ReceivableId })">
+            <i class="fa fa-pen"></i> EDIT
+        </a>
+    </div>
+</div>
+
+<div class="form-page-card">
+    <div class="form-page-header">
+        <i class="fa fa-circle-info"></i> Receivable Information
+    </div>
+    <div class="form-row-grid">
+        <div class="float-field">
+            <label>Account Number</label>
+            <input class="float-input" value="@Model.AccountNumber" readonly />
+        </div>
+        <div class="float-field">
+            <label>Customer</label>
+            <input class="float-input" value="@Model.Customer?.Name" readonly />
+        </div>
+        <div class="float-field">
+            <label>Employee</label>
+            <input class="float-input" value="@Model.Employee?.FirstName @Model.Employee?.LastName" readonly />
+        </div>
+        <div class="float-field">
+            <label>Issue Date</label>
+            <input class="float-input" value="@Model.IssueDate.ToString("MMM dd, yyyy")" readonly />
+        </div>
+        <div class="float-field">
+            <label>Due Date</label>
+            <input class="float-input" value="@Model.DueDate.ToString("MMM dd, yyyy")" readonly />
+        </div>
+        <div class="float-field">
+            <label>Total Amount</label>
+            <input class="float-input" value="@String.Format("{0:C}", Model.TotalAmount)" readonly />
+        </div>
+        <div class="float-field">
+            <label>Paid Amount</label>
+            <input class="float-input" value="@String.Format("{0:C}", Model.PaidAmount)" readonly />
+        </div>
+        <div class="float-field">
+            <label>Balance</label>
+            <input class="float-input" value="@String.Format("{0:C}", Model.Balance)" readonly />
+        </div>
+        <div class="float-field">
+            <label>Status</label>
+            <input class="float-input" value="@Model.Status" readonly />
+        </div>
+        <div class="float-field grid-span-2">
+            <label>Description</label>
+            <input class="float-input" value="@Model.Description" readonly />
+        </div>
+    </div>
+</div>
+
+@* ── PAYMENTS TABLE ────────────────────────────────── *@
+<div class="page-header-section page-header-section--compact">
+    <div>
+        <a class="btn-create btn-create--compact" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
+            <i class="fa fa-plus"></i> ADD PAYMENT
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Payments</div>
+        <h2 class="page-title page-title--small">Payment <span>History</span></h2>
+    </div>
+    <div class="header-actions"></div>
+</div>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Payment Date</th>
+                <th>Amount</th>
+                <th>Notes</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Payments != null && Model.Payments.Any(p => p.IsActive))
+            {
+                foreach (var payment in Model.Payments.Where(p => p.IsActive).OrderByDescending(p => p.PaymentDate))
+                {
+                    <tr>
+                        <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
+                        <td>@String.Format("{0:C}", payment.Amount)</td>
+                        <td>@payment.Notes</td>
+                        <td class="text-center">
+                            <a class="action-btn action-edit"
+                               href="@Url.Action("Edit", "Payments", new { id = payment.PaymentId })"
+                               title="Edit">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                            @using (Html.BeginForm("Delete", "Payments", FormMethod.Post,
+                                new { @class = "inline-form", onsubmit = "return confirm('Delete this payment?');" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", payment.PaymentId)
+                                <button type="submit" class="action-btn action-delete" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="no-data-cell">
+                        <i class="fa fa-hand-holding-dollar no-data-icon"></i>
+                        No payments recorded yet.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,319 @@
+﻿/*!
+ * Font Awesome 6.4.0 - Local Version
+ * CSS with fonts served locally to avoid CDN tracking warnings
+ */
+
+@font-face {
+    font-family: "Font Awesome 6 Free";
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url('/Content/fontawesome/fa-solid-900.woff2') format('woff2'), url('/Content/fontawesome/fa-solid-900.ttf') format('truetype');
+}
+
+.fa {
+    font-family: var(--fa-style-family,"Font Awesome 6 Free");
+    font-weight: var(--fa-style,900)
+}
+
+.fa, .fa-brands, .fa-classic, .fa-regular, .fa-sharp, .fa-solid, .fab, .far, .fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display,inline-block);
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto
+}
+
+.fa-classic, .fa-regular, .fa-solid, .far, .fas {
+    font-family: "Font Awesome 6 Free"
+}
+
+.fa-brands, .fab {
+    font-family: "Font Awesome 6 Free"
+}
+
+.fa-1x {
+    font-size: 1em
+}
+
+.fa-2x {
+    font-size: 2em
+}
+
+.fa-3x {
+    font-size: 3em
+}
+
+.fa-4x {
+    font-size: 4em
+}
+
+.fa-5x {
+    font-size: 5em
+}
+
+.fa-6x {
+    font-size: 6em
+}
+
+.fa-7x {
+    font-size: 7em
+}
+
+.fa-8x {
+    font-size: 8em
+}
+
+.fa-9x {
+    font-size: 9em
+}
+
+.fa-10x {
+    font-size: 10em
+}
+
+.fa-2xs {
+    font-size: .625em;
+    line-height: .1em;
+    vertical-align: .225em
+}
+
+.fa-xs {
+    font-size: .75em;
+    line-height: .08333em;
+    vertical-align: .125em
+}
+
+.fa-sm {
+    font-size: .875em;
+    line-height: .07143em;
+    vertical-align: .05357em
+}
+
+.fa-lg {
+    font-size: 1.25em;
+    line-height: .05em;
+    vertical-align: -.075em
+}
+
+.fa-xl {
+    font-size: 1.5em;
+    line-height: .04167em;
+    vertical-align: -.125em
+}
+
+.fa-2xl {
+    font-size: 2em;
+    line-height: .03125em;
+    vertical-align: -.1875em
+}
+
+.fa-fw {
+    text-align: center;
+    width: 1.25em
+}
+
+.fa-ul {
+    list-style-type: none;
+    margin-left: var(--fa-li-margin,2.5em);
+    padding-left: 0
+}
+
+    .fa-ul > li {
+        position: relative
+    }
+
+.fa-li {
+    left: calc(var(--fa-li-width, 2em)*-1);
+    position: absolute;
+    text-align: center;
+    width: var(--fa-li-width,2em);
+    line-height: inherit
+}
+
+.fa-border {
+    border-radius: var(--fa-border-radius,.1em);
+    border: var(--fa-border-width,.08em) var(--fa-border-style,solid) var(--fa-border-color,#eee);
+    padding: var(--fa-border-padding,.2em .25em .15em)
+}
+
+.fa-pull-left {
+    float: left;
+    margin-right: var(--fa-pull-margin,.3em)
+}
+
+.fa-pull-right {
+    float: right;
+    margin-left: var(--fa-pull-margin,.3em)
+}
+
+.fa-rotate-90 {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.fa-rotate-180 {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+.fa-rotate-270 {
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg)
+}
+
+.fa-flip-horizontal {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1)
+}
+
+.fa-flip-vertical {
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1)
+}
+
+.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+    -webkit-transform: scale(-1);
+    transform: scale(-1)
+}
+
+.fa-rotate-by {
+    -webkit-transform: rotate(var(--fa-rotate-angle,none));
+    transform: rotate(var(--fa-rotate-angle,none))
+}
+
+.fa-stack {
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    position: relative;
+    vertical-align: middle;
+    width: 2.5em
+}
+
+.fa-stack-1x, .fa-stack-2x {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: var(--fa-stack-z-index,auto)
+}
+
+.fa-stack-1x {
+    line-height: inherit
+}
+
+.fa-stack-2x {
+    font-size: 2em
+}
+
+.fa-inverse {
+    color: var(--fa-inverse,#fff)
+}
+
+/* All Icons Used in BillingSystem */
+.fa-0:before {
+    content: "\30"
+}
+
+.fa-1:before {
+    content: "\31"
+}
+
+.fa-2:before {
+    content: "\32"
+}
+
+.fa-3:before {
+    content: "\33"
+}
+
+.fa-4:before {
+    content: "\34"
+}
+
+.fa-5:before {
+    content: "\35"
+}
+
+.fa-6:before {
+    content: "\36"
+}
+
+.fa-7:before {
+    content: "\37"
+}
+
+.fa-8:before {
+    content: "\38"
+}
+
+.fa-9:before {
+    content: "\39"
+}
+
+/* Action Icons */
+.fa-eye:before {
+    content: "\f06e"
+}
+
+.fa-file-invoice-dollar:before {
+    content: "\f571"
+}
+
+.fa-file-invoice:before {
+    content: "\f570"
+}
+
+.fa-trash-can:before, .fa-trash-alt:before, .fa-trash:before {
+    content: "\f2ed"
+}
+
+.fa-pen-to-square:before, .fa-edit:before {
+    content: "\f044"
+}
+
+.fa-pen:before {
+    content: "\f304"
+}
+
+.fa-plus:before {
+    content: "\2b"
+}
+
+/* Filter Icons */
+.fa-search:before {
+    content: "\f002"
+}
+
+.fa-rotate-right:before, .fa-redo:before {
+    content: "\f01e"
+}
+
+/* Pagination Icons */
+.fa-angle-left:before {
+    content: "\f104"
+}
+
+.fa-angle-right:before {
+    content: "\f105"
+}
+
+.fa-angles-left:before {
+    content: "\f100"
+}
+
+.fa-angles-right:before {
+    content: "\f101"
+}
+
+/* Calendar Icons */
+.fa-calendar:before {
+    content: "\f133"
+}
+
+.fa-calendar-days:before, .fa-calendar-alt:before {
+    content: "\f073"
+}

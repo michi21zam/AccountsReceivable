@@ -1,0 +1,56 @@
+@model AccountsReceivable.Models.Receivable
+
+@{
+    ViewBag.Title = "Delete Receivable";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Index", "Receivables")">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Accounts Receivable</div>
+        <h1 class="page-title page-title--danger"><span>Delete</span> receivable?</h1>
+    </div>
+    <div class="header-spacer"></div>
+</div>
+
+<div class="form-page-card form-page-card--danger">
+    <div class="form-page-header form-page-header--danger">
+        <i class="fa fa-triangle-exclamation"></i> Confirm Deletion
+    </div>
+    <p class="muted-lead">
+        Are you sure you want to delete the following receivable? This action cannot be undone.
+    </p>
+
+    <div class="form-row-grid">
+        <div class="float-field">
+            <label>Account Number</label>
+            <input class="float-input" value="@Model.AccountNumber" readonly />
+        </div>
+        <div class="float-field">
+            <label>Customer</label>
+            <input class="float-input" value="@Model.Customer?.Name" readonly />
+        </div>
+        <div class="float-field">
+            <label>Total Amount</label>
+            <input class="float-input" value="@String.Format("{0:C}", Model.TotalAmount)" readonly />
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Delete", "Receivables", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ReceivableId)
+        <div class="form-page-actions">
+            <button type="submit" class="btn-create btn-create--danger">
+                <i class="fa fa-trash"></i> YES, DELETE
+            </button>
+            <a href="@Url.Action("Index", "Receivables")" class="btn-back ml-10">
+                Cancel
+            </a>
+        </div>
+    }
+</div>

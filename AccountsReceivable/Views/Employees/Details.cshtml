@@ -1,0 +1,54 @@
+@model AccountsReceivable.Models.Employee
+
+@{
+    ViewBag.Title = "Employee Details";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Index", "Employees")">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Employees</div>
+        <h1 class="page-title"><span>Details</span> of @Model.FirstName @Model.LastName</h1>
+    </div>
+    <div class="header-actions">
+        <a class="btn-create btn-create--compact" href="@Url.Action("Edit", "Employees", new { id = Model.EmployeeId })">
+            <i class="fa fa-pen"></i> EDIT
+        </a>
+    </div>
+</div>
+
+<div class="form-page-card">
+    <div class="form-page-header">
+        <i class="fa fa-circle-info"></i> Employee Information
+    </div>
+    <div class="form-row-grid">
+        <div class="float-field">
+            <label>Employee Code</label>
+            <input class="float-input" value="@Model.EmployeeCode" readonly />
+        </div>
+        <div class="float-field">
+            <label>Full Name</label>
+            <input class="float-input" value="@Model.FirstName @Model.LastName" readonly />
+        </div>
+        <div class="float-field">
+            <label>Email</label>
+            <input class="float-input" value="@Model.Email" readonly />
+        </div>
+        <div class="float-field">
+            <label>Phone</label>
+            <input class="float-input" value="@Model.Phone" readonly />
+        </div>
+        <div class="float-field">
+            <label>Position</label>
+            <input class="float-input" value="@Model.Position" readonly />
+        </div>
+        <div class="float-field">
+            <label>Hire Date</label>
+            <input class="float-input" value="@Model.HireDate.ToString("MMM dd, yyyy")" readonly />
+        </div>
+    </div>
+</div>

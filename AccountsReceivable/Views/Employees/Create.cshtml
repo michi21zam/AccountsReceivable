@@ -1,0 +1,76 @@
+@model AccountsReceivable.Models.Employee
+
+@{
+    ViewBag.Title = "Create Employee";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Index", "Employees")">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Employees</div>
+        <h1 class="page-title"><span>Create</span> new employee</h1>
+    </div>
+    <div class="header-spacer"></div>
+</div>
+
+@using (Html.BeginForm("Create", "Employees", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-page-card">
+        <div class="form-page-header">
+            <i class="fa fa-circle-info"></i> Employee Information
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+        <div class="form-row-grid">
+            <div class="float-field">
+                <label>Employee Code</label>
+                @Html.TextBoxFor(m => m.EmployeeCode, new { @class = "float-input", placeholder = " " })
+                @Html.ValidationMessageFor(m => m.EmployeeCode, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>First Name</label>
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "float-input", placeholder = " " })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Last Name</label>
+                @Html.TextBoxFor(m => m.LastName, new { @class = "float-input", placeholder = " " })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Email</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "float-input", placeholder = " " })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Phone</label>
+                @Html.TextBoxFor(m => m.Phone, new { @class = "float-input", placeholder = " " })
+            </div>
+            <div class="float-field">
+                <label>Position</label>
+                @Html.TextBoxFor(m => m.Position, new { @class = "float-input", placeholder = " " })
+            </div>
+            <div class="float-field">
+                <label>Hire Date</label>
+                @Html.TextBoxFor(m => m.HireDate, "{0:yyyy-MM-dd}", new { @class = "float-input", type = "date" })
+                @Html.ValidationMessageFor(m => m.HireDate, "", new { @class = "field-error" })
+            </div>
+        </div>
+
+        <div class="form-page-actions">
+            <button type="submit" class="btn-create">
+                <i class="fa fa-floppy-disk"></i> SAVE
+            </button>
+            <a href="@Url.Action("Index", "Employees")" class="btn-back ml-10">
+                Cancel
+            </a>
+        </div>
+    </div>
+}

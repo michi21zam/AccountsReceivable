@@ -1,0 +1,83 @@
+@model AccountsReceivable.Models.Receivable
+@using AccountsReceivable.Models
+
+@{
+    ViewBag.Title = "Edit Receivable";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-back" href="@Url.Action("Index", "Receivables")">
+            <i class="fa fa-arrow-left"></i> BACK
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Accounts Receivable</div>
+        <h1 class="page-title"><span>Edit</span> receivable settings</h1>
+    </div>
+    <div class="header-spacer"></div>
+</div>
+
+@using (Html.BeginForm("Edit", "Receivables", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ReceivableId)
+
+    <div class="form-page-card">
+        <div class="form-page-header">
+            <i class="fa fa-circle-info"></i> Receivable Information
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+
+        <div class="form-row-grid">
+            <div class="float-field">
+                <label>Account Number</label>
+                @Html.TextBoxFor(m => m.AccountNumber, new { @class = "float-input", placeholder = " " })
+                @Html.ValidationMessageFor(m => m.AccountNumber, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Customer</label>
+                @Html.DropDownListFor(m => m.CustomerId,
+                    new SelectList((IEnumerable<Customer>)ViewBag.Customers, "CustomerId", "Name", Model.CustomerId),
+                    new { @class = "float-select" })
+                @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Employee</label>
+                @Html.DropDownListFor(m => m.EmployeeId,
+                    new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName", Model.EmployeeId),
+                    new { @class = "float-select" })
+                @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Issue Date</label>
+                @Html.TextBoxFor(m => m.IssueDate, "{0:yyyy-MM-dd}", new { @class = "float-input", type = "date" })
+                @Html.ValidationMessageFor(m => m.IssueDate, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Due Date</label>
+                @Html.TextBoxFor(m => m.DueDate, "{0:yyyy-MM-dd}", new { @class = "float-input", type = "date" })
+                @Html.ValidationMessageFor(m => m.DueDate, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field">
+                <label>Total Amount</label>
+                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "float-input", type = "number", step = "0.01", placeholder = " " })
+                @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @class = "field-error" })
+            </div>
+            <div class="float-field grid-span-2">
+                <label>Description</label>
+                @Html.TextBoxFor(m => m.Description, new { @class = "float-input", placeholder = " " })
+            </div>
+        </div>
+
+        <div class="form-page-actions">
+            <button type="submit" class="btn-create">
+                <i class="fa fa-floppy-disk"></i> SAVE
+            </button>
+            <a href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })" class="btn-back ml-10">
+                Cancel
+            </a>
+        </div>
+    </div>
+}

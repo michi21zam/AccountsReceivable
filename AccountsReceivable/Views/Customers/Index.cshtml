@@ -1,0 +1,76 @@
+@model IEnumerable<AccountsReceivable.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+}
+
+<div class="page-header-section">
+    <div>
+        <a class="btn-create" href="@Url.Action("Create", "Customers")">
+            <i class="fa fa-plus"></i> CREATE NEW
+        </a>
+    </div>
+    <div class="page-header-titles">
+        <div class="page-label">Customers</div>
+        <h1 class="page-title"><span>Manage</span> customers</h1>
+    </div>
+    <div class="header-spacer"></div>
+</div>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Tax Id</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Credit Limit</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CustomerCode</td>
+                        <td>@item.Name</td>
+                        <td>@item.TaxId</td>
+                        <td>@item.Email</td>
+                        <td>@item.Phone</td>
+                        <td>@String.Format("{0:C}", item.CreditLimit)</td>
+                        <td class="text-center">
+                            <a class="action-btn action-view" href="@Url.Action("Details", "Customers", new { id = item.CustomerId })" title="Details">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a class="action-btn action-edit" href="@Url.Action("Edit", "Customers", new { id = item.CustomerId })" title="Edit">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                            @using (Html.BeginForm("Delete", "Customers", FormMethod.Post,
+                                new { @class = "inline-form", onsubmit = "return confirm('Delete this customer?');" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", item.CustomerId)
+                                <button type="submit" class="action-btn action-delete" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="no-data-cell">
+                        <i class="fa fa-users no-data-icon"></i>
+                        No customers found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
