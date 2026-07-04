@@ -119,15 +119,11 @@
                                 <a class="btn btn-warning btn-action" href="@Url.Action("Edit", "Payments", new { id = payment.PaymentId })" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                @using (Html.BeginForm("Delete", "Payments", FormMethod.Post,
-                                    new { @class = "d-inline", onsubmit = "return confirm('" + Lang.T("ConfirmDeletePaymentJs") + "');" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.Hidden("id", payment.PaymentId)
-                                    <button type="submit" class="btn btn-danger btn-action" title="Delete">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                }
+                                <button type="button" class="btn btn-danger btn-action js-delete-trigger"
+                                        data-delete-url="@Url.Action("Delete", "Payments", new { id = payment.PaymentId })"
+                                        title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     }

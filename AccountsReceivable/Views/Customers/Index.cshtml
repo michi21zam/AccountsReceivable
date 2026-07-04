@@ -22,7 +22,80 @@
             <thead>
                 <tr>
                     <th>@Lang.T("ColCode")</th>
+                    <th>@Lang.T("FieldName")</th>@using AccountsReceivable.Resources
+@model IEnumerable<AccountsReceivable.Models.Customer>
+
+@{
+    ViewBag.Title = Lang.T("NavCustomers");
+}
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <a class="btn btn-success fw-bold" href="@Url.Action("Create", "Customers")">
+        <i class="bi bi-plus-lg"></i> @Lang.T("CreateNew")
+    </a>
+    <div class="text-center flex-grow-1">
+        <div class="page-label">@Lang.T("LabelCustomers")</div>
+        <h1 class="h3 fw-bold m-0">@Lang.T("TitleManageCustomers")</h1>
+    </div>
+    <div style="min-width:140px;"></div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>@Lang.T("ColCode")</th>
                     <th>@Lang.T("FieldName")</th>
+                    <th>@Lang.T("FieldTaxId")</th>
+                    <th>@Lang.T("FieldEmail")</th>
+                    <th>@Lang.T("FieldPhone")</th>
+                    <th>@Lang.T("FieldCreditLimit")</th>
+                    <th class="text-center">@Lang.T("Actions")</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CustomerCode</td>
+                            <td>@item.Name</td>
+                            <td>@item.TaxId</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td>@String.Format("{0:C}", item.CreditLimit)</td>
+                            <td class="text-center">
+                                <a class="btn btn-primary btn-action" href="@Url.Action("Details", "Customers", new { id = item.CustomerId })" title="Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a class="btn btn-warning btn-action" href="@Url.Action("Edit", "Customers", new { id = item.CustomerId })" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button type="button" class="btn btn-danger btn-action js-delete-trigger"
+                                        data-delete-url="@Url.Action("Delete", "Customers", new { id = item.CustomerId })"
+                                        title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-5">
+                            <i class="bi bi-people d-block fs-1 opacity-25 mb-2"></i>
+                            @Lang.T("NoCustomersFound")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
                     <th>@Lang.T("FieldTaxId")</th>
                     <th>@Lang.T("FieldEmail")</th>
                     <th>@Lang.T("FieldPhone")</th>

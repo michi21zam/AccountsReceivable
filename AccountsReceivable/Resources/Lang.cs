@@ -128,6 +128,15 @@ namespace AccountsReceivable.Resources
                 "El Monto Total supera el Límite de Crédito del cliente ({0}).");
             Add("AvailableCreditLimit", "Available credit limit:", "Límite de crédito disponible:");
 
+            // ---------- Validaciones ----------
+            Add("ErrorExceedsCreditLimit",
+                "Total Amount exceeds the customer's Credit Limit ({0}).",
+                "El Monto Total supera el Límite de Crédito del cliente ({0}).");
+            Add("AvailableCreditLimit", "Available credit limit:", "Límite de crédito disponible:");
+            Add("ConfirmDeleteGenericText",
+                "Are you sure you want to delete this record? This action cannot be undone.",
+                "¿Está seguro de que desea eliminar este registro? Esta acción no se puede deshacer.");
+
             All["en"] = En;
             All["es"] = Es;
         }
