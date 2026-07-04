@@ -4,53 +4,53 @@
     ViewBag.Title = "Delete Payment";
 }
 
-<div class="page-header-section">
-    <div>
-        <a class="btn-back" href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })">
-            <i class="fa fa-arrow-left"></i> BACK
-        </a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <a class="btn btn-primary fw-bold" href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })">
+        <i class="bi bi-arrow-left"></i> BACK
+    </a>
+    <div class="text-center flex-grow-1">
+        <div class="page-label text-danger">Payments</div>
+        <h1 class="h3 fw-bold m-0 text-danger"><span>Delete</span> payment?</h1>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Payments</div>
-        <h1 class="page-title page-title--danger"><span>Delete</span> payment?</h1>
-    </div>
-    <div class="header-spacer"></div>
+    <div style="min-width:140px;"></div>
 </div>
 
-<div class="form-page-card form-page-card--danger">
-    <div class="form-page-header form-page-header--danger">
-        <i class="fa fa-triangle-exclamation"></i> Confirm Deletion
+<div class="card border-top border-danger border-3">
+    <div class="card-header bg-white">
+        <span class="card-header-title text-danger"><i class="bi bi-exclamation-triangle"></i> Confirm Deletion</span>
     </div>
-    <p class="muted-lead">
-        Are you sure you want to delete this payment? This action cannot be undone.
-    </p>
+    <div class="card-body">
+        <p class="text-muted mb-4">
+            Are you sure you want to delete this payment? This action cannot be undone.
+        </p>
 
-    <div class="form-row-grid">
-        <div class="float-field">
-            <label>Payment Date</label>
-            <input class="float-input" value="@Model.PaymentDate.ToString("MMM dd, yyyy")" readonly />
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Payment Date</label>
+                <input class="form-control" value="@Model.PaymentDate.ToString("MMM dd, yyyy")" readonly />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Amount</label>
+                <input class="form-control" value="@String.Format("{0:C}", Model.Amount)" readonly />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Notes</label>
+                <input class="form-control" value="@Model.Notes" readonly />
+            </div>
         </div>
-        <div class="float-field">
-            <label>Amount</label>
-            <input class="float-input" value="@String.Format("{0:C}", Model.Amount)" readonly />
-        </div>
-        <div class="float-field grid-span-2">
-            <label>Notes</label>
-            <input class="float-input" value="@Model.Notes" readonly />
-        </div>
+
+        @using (Html.BeginForm("Delete", "Payments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.PaymentId)
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-danger fw-bold">
+                    <i class="bi bi-trash"></i> YES, DELETE
+                </button>
+                <a href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })" class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+            </div>
+        }
     </div>
-
-    @using (Html.BeginForm("Delete", "Payments", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.PaymentId)
-        <div class="form-page-actions">
-            <button type="submit" class="btn-create btn-create--danger">
-                <i class="fa fa-trash"></i> YES, DELETE
-            </button>
-            <a href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })" class="btn-back ml-10">
-                Cancel
-            </a>
-        </div>
-    }
 </div>

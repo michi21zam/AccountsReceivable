@@ -4,38 +4,33 @@
     ViewBag.Title = "Payment Details";
 }
 
-<!-- Header -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <a class="btn btn-info" href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })">
-            <i class="fa fa-arrow-left"></i> BACK
-        </a>
-    </div>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <a class="btn btn-primary fw-bold" href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })">
+        <i class="bi bi-arrow-left"></i> BACK
+    </a>
     <div class="text-center flex-grow-1">
-        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Payments</div>
-        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Details</span> of payment</h1>
+        <div class="page-label">Payments</div>
+        <h1 class="h3 fw-bold m-0"><span>Details</span> of payment</h1>
     </div>
-    <div style="min-width: 100px;"></div>
+    <div style="min-width:140px;"></div>
 </div>
 
-<div class="card border-0 shadow-sm">
-    <div class="card-header bg-white border-bottom">
-        <h5 class="mb-0 text-uppercase fw-bold" style="color: #0b5566; letter-spacing: 1px; font-size: 13px;">
-            <i class="fa fa-circle-info"></i> Payment Information
-        </h5>
+<div class="card">
+    <div class="card-header bg-white">
+        <span class="card-header-title"><i class="bi bi-info-circle"></i> Payment Information</span>
     </div>
     <div class="card-body">
         <div class="row g-3">
-            <div class="col-lg-3">
-                <label class="form-label small fw-bold text-muted text-uppercase">Payment Date</label>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Payment Date</label>
                 <input class="form-control" value="@Model.PaymentDate.ToString("MMM dd, yyyy")" readonly />
             </div>
-            <div class="col-lg-3">
-                <label class="form-label small fw-bold text-muted text-uppercase">Amount</label>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Amount</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.Amount)" readonly />
             </div>
-            <div class="col-lg-6">
-                <label class="form-label small fw-bold text-muted text-uppercase">Notes</label>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Notes</label>
                 <input class="form-control" value="@Model.Notes" readonly />
             </div>
         </div>

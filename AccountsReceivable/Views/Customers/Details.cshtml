@@ -4,58 +4,53 @@
     ViewBag.Title = "Customer Details";
 }
 
-<!-- Header -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <a class="btn btn-info" href="@Url.Action("Index", "Customers")">
-            <i class="fa fa-arrow-left"></i> BACK
-        </a>
-    </div>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <a class="btn btn-primary fw-bold" href="@Url.Action("Index", "Customers")">
+        <i class="bi bi-arrow-left"></i> BACK
+    </a>
     <div class="text-center flex-grow-1">
-        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Customers</div>
-        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Details</span> of @Model.Name</h1>
+        <div class="page-label">Customers</div>
+        <h1 class="h3 fw-bold m-0"><span>Details</span> of @Model.Name</h1>
     </div>
-    <div>
-        <a class="btn btn-success" href="@Url.Action("Edit", "Customers", new { id = Model.CustomerId })">
-            <i class="fa fa-pen"></i> EDIT
+    <div style="min-width:140px; text-align:right;">
+        <a class="btn btn-success btn-sm fw-bold" href="@Url.Action("Edit", "Customers", new { id = Model.CustomerId })">
+            <i class="bi bi-pencil"></i> EDIT
         </a>
     </div>
 </div>
 
-<div class="card border-0 shadow-sm">
-    <div class="card-header bg-white border-bottom">
-        <h5 class="mb-0 text-uppercase fw-bold" style="color: #0b5566; letter-spacing: 1px; font-size: 13px;">
-            <i class="fa fa-circle-info"></i> Customer Information
-        </h5>
+<div class="card">
+    <div class="card-header bg-white">
+        <span class="card-header-title"><i class="bi bi-info-circle"></i> Customer Information</span>
     </div>
     <div class="card-body">
         <div class="row g-3">
-            <div class="col-lg-3">
-                <label class="form-label small fw-bold text-muted text-uppercase">Customer Code</label>
+            <div class="col-md-3">
+                <label class="form-label form-label-sm">Customer Code</label>
                 <input class="form-control" value="@Model.CustomerCode" readonly />
             </div>
-            <div class="col-lg-6">
-                <label class="form-label small fw-bold text-muted text-uppercase">Name</label>
+            <div class="col-md-6">
+                <label class="form-label form-label-sm">Name</label>
                 <input class="form-control" value="@Model.Name" readonly />
             </div>
-            <div class="col-lg-3">
-                <label class="form-label small fw-bold text-muted text-uppercase">Tax Id</label>
+            <div class="col-md-3">
+                <label class="form-label form-label-sm">Tax Id</label>
                 <input class="form-control" value="@Model.TaxId" readonly />
             </div>
-            <div class="col-lg-6">
-                <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Email</label>
                 <input class="form-control" value="@Model.Email" readonly />
             </div>
-            <div class="col-lg-3">
-                <label class="form-label small fw-bold text-muted text-uppercase">Phone</label>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Phone</label>
                 <input class="form-control" value="@Model.Phone" readonly />
             </div>
-            <div class="col-lg-3">
-                <label class="form-label small fw-bold text-muted text-uppercase">Credit Limit</label>
+            <div class="col-md-4">
+                <label class="form-label form-label-sm">Credit Limit</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.CreditLimit)" readonly />
             </div>
-            <div class="col-lg-12">
-                <label class="form-label small fw-bold text-muted text-uppercase">Address</label>
+            <div class="col-md-12">
+                <label class="form-label form-label-sm">Address</label>
                 <input class="form-control" value="@Model.Address" readonly />
             </div>
         </div>

@@ -1,276 +1,143 @@
-/* Personalización de colores Bootstrap - TEMA PERSONALIZADO */
-
-:root {
-    --bs-primary: #0b5566; /* Teal oscuro (botones principales) */
-    --bs-secondary: #1a7a91; /* Teal claro (hover) */
-    --bs-success: #19a24a; /* Verde (botones crear/guardar) */
-    --bs-danger: #e8304a; /* Rojo (botones eliminar) */
-    --bs-warning: #f2a900; /* Naranja (botones editar) */
-    --bs-info: #0b5566; /* Teal para info (botones ver) */
-    --bs-body-bg: #eef1f3; /* Fondo gris claro */
-    --bs-body-color: #223344; /* Color de texto principal */
-    --bs-border-color: #dde3ea; /* Color de bordes */
-    --bs-gray-500: #7a8a99; /* Gris para textos mutados */
-}
-
-/* ── IMPORTAR FUENTE ─────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
-/* ── ESTILOS BASE ────────────────────────────────────────── */
-html, body {
-    font-family: 'Nunito', sans-serif;
+:root {
+    --bs-body-font-family: 'Nunito', sans-serif;
+    --teal: #0b5566;
+    --teal-light: #1a7a91;
+    --green: #19a24a;
+    --green-dark: #148040;
+    --orange: #f2a900;
+    --red: #e8304a;
+    --bg: #eef1f3;
 }
 
 body {
-    background-color: var(--bs-body-bg);
+    background: var(--bg);
 }
 
-/* ── INPUTS Y SELECTS ────────────────────────────────────── */
-.form-control, .form-select {
-    background-color: #f8f9fa;
-    border-color: var(--bs-border-color);
-    color: var(--bs-body-color);
-    font-family: 'Nunito', sans-serif;
-    border-radius: 8px;
-    border: 1.5px solid var(--bs-border-color);
-}
-
-    .form-control:focus, .form-select:focus {
-        border-color: var(--bs-primary);
-        box-shadow: 0 0 0 3px rgba(11, 85, 102, 0.12);
-        background-color: #fff;
-    }
-
-    .form-control[readonly] {
-        background-color: #f0f2f4;
-        color: var(--bs-gray-500);
-        cursor: not-allowed;
-    }
-
-/* ── LABELS ──────────────────────────────────────────────── */
-.form-label {
-    color: var(--bs-gray-500);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.9px;
-}
-
-/* ── BOTONES ─────────────────────────────────────────────── */
-.btn {
-    font-weight: 600;
-    border-radius: 8px;
-    border: none;
-    transition: all 0.2s ease;
-    font-family: 'Nunito', sans-serif;
-    letter-spacing: 0.3px;
-}
-
-.btn-primary, .btn-info {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
-}
-
-    .btn-primary:hover, .btn-info:hover {
-        background-color: var(--bs-secondary);
-        border-color: var(--bs-secondary);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 18px rgba(11, 85, 102, 0.25);
-    }
-
-.btn-success {
-    background-color: var(--bs-success);
-    border-color: var(--bs-success);
-}
-
-    .btn-success:hover {
-        background-color: #148040;
-        border-color: #148040;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 18px rgba(25, 162, 74, 0.30);
-    }
-
-.btn-warning {
-    background-color: var(--bs-warning);
-    border-color: var(--bs-warning);
-}
-
-    .btn-warning:hover {
-        background-color: #d89600;
-        border-color: #d89600;
-        transform: translateY(-1px);
-    }
-
-.btn-danger {
-    background-color: var(--bs-danger);
-    border-color: var(--bs-danger);
-}
-
-    .btn-danger:hover {
-        background-color: #c0243a;
-        border-color: #c0243a;
-        transform: translateY(-1px);
-    }
-
-.btn-secondary {
-    background-color: #8a9bac;
-    border-color: #8a9bac;
-    color: #fff;
-}
-
-    .btn-secondary:hover {
-        background-color: #778a9b;
-        border-color: #778a9b;
-    }
-
-/* ── CARDS ───────────────────────────────────────────────── */
-.card {
-    border-color: var(--bs-border-color) !important;
-    border-radius: 12px;
-    box-shadow: 0 4px 18px rgba(11, 85, 102, 0.10) !important;
-}
-
-.card-header {
-    background-color: #fff !important;
-    border-color: var(--bs-border-color) !important;
-}
-
-.card-footer {
-    background-color: #fff !important;
-    border-color: var(--bs-border-color) !important;
-}
-
-/* ── TABLAS ──────────────────────────────────────────────── */
-.table {
-    color: var(--bs-body-color);
-}
-
-    .table thead th {
-        background-color: #f8f9fa;
-        border-color: var(--bs-border-color);
-        color: var(--bs-gray-500);
-        font-size: 13px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-    }
-
-    .table tbody tr {
-        border-color: var(--bs-border-color);
-        transition: background-color 0.15s ease;
-    }
-
-        .table tbody tr:hover {
-            background-color: #f5f8fa;
-        }
-
-.table-light {
-    background-color: #f8f9fa;
-}
-
-/* ── PAGINACIÓN ──────────────────────────────────────────– */
-.pagination {
-    gap: 4px;
-}
-
-.page-link {
-    border-color: var(--bs-border-color);
-    color: var(--bs-primary);
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-    .page-link:hover {
-        background-color: var(--bs-primary);
-        color: #fff;
-        border-color: var(--bs-primary);
-    }
-
-    .page-link.active {
-        background-color: var(--bs-primary);
-        border-color: var(--bs-primary);
-        box-shadow: 0 3px 10px rgba(11, 85, 102, 0.30);
-    }
-
-    .page-link.disabled {
-        background-color: var(--bs-body-bg);
-        color: #bbc5cf;
-        cursor: not-allowed;
-        border-color: var(--bs-border-color);
-    }
-
-/* ── ALERTAS ─────────────────────────────────────────────– */
-.alert-danger {
-    background-color: #fde8ec;
-    border-color: #f5b0bc;
-    color: #c0243a;
-}
-
-/* ── BADGES ──────────────────────────────────────────────– */
-.badge {
-    font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-}
-
-.bg-success {
-    background-color: var(--bs-success) !important;
-}
-
-.bg-danger {
-    background-color: var(--bs-danger) !important;
-}
-
-.bg-warning {
-    background-color: var(--bs-warning) !important;
-}
-
-.bg-info {
-    background-color: var(--bs-primary) !important;
-}
-
-/* ── NAVBAR ──────────────────────────────────────────────– */
-.navbar {
-    background-color: #fff !important;
-    border-bottom: 2px solid var(--bs-border-color);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-}
-
+/* ── NAVBAR ─────────────────────────────────────────────── */
 .navbar-brand {
     font-weight: 800;
-    color: var(--bs-primary) !important;
-    letter-spacing: -0.5px;
-    font-size: 22px;
+    color: var(--teal) !important;
 }
 
-.nav-link {
-    color: var(--bs-body-color) !important;
+.navbar .nav-link {
     font-weight: 600;
-    font-size: 14px;
-    transition: color 0.2s ease;
+    color: #223344 !important;
 }
 
-    .nav-link:hover {
-        color: var(--bs-primary) !important;
+    .navbar .nav-link:hover {
+        color: var(--teal) !important;
     }
 
-/* ── TEXTOS HELPER ───────────────────────────────────────– */
-.text-muted {
-    color: var(--bs-gray-500) !important;
+/* ── PAGE HEADER ────────────────────────────────────────── */
+.page-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--teal);
 }
 
-.text-danger {
-    color: var(--bs-danger) !important;
+.page-title span {
+    color: var(--teal);
 }
 
-/* ── RESPONSIVE ──────────────────────────────────────────– */
-@media (max-width: 768px) {
-    .btn {
-        font-size: 13px;
-        padding: 8px 16px;
-    }
+/* ── BUTTONS: reuse bootstrap semantics, just recolor ──────
+   btn-success  = CREATE / SAVE (green)
+   btn-primary  = BACK / search / view action (teal)
+   btn-warning  = EDIT action (orange, needs white text)
+   btn-danger   = DELETE (red, bootstrap default is close enough)
+--------------------------------------------------------------*/
+.btn-success {
+    --bs-btn-bg: var(--green);
+    --bs-btn-border-color: var(--green);
+    --bs-btn-hover-bg: var(--green-dark);
+    --bs-btn-hover-border-color: var(--green-dark);
+}
 
-    .table {
-        font-size: 13px;
-    }
+.btn-primary {
+    --bs-btn-bg: var(--teal);
+    --bs-btn-border-color: var(--teal);
+    --bs-btn-hover-bg: var(--teal-light);
+    --bs-btn-hover-border-color: var(--teal-light);
+}
+
+.btn-warning {
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+}
+
+/* Circular action buttons in tables (print/edit/delete/view) */
+.btn-action {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── CARDS: filter card / table card / form card ──────────── */
+.card {
+    border: 1px solid #dde3ea;
+    box-shadow: 0 4px 18px rgba(11, 85, 102, .10);
+}
+
+.card-header-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--teal);
+}
+
+/* ── FORM LABELS (small uppercase muted, matches your current look) */
+.form-label-sm {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .9px;
+    color: #7a8a99;
+}
+
+/* ── TABLE ──────────────────────────────────────────────── */
+.table > thead {
+    border-bottom: 2px solid #dde3ea;
+}
+
+.table > thead th {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7a8a99;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    border: none;
+}
+
+.table > tbody td {
+    vertical-align: middle;
+    border-color: #dde3ea;
+}
+
+/* ── STATUS BADGES (bootstrap badges, just recolored) ─────── */
+.badge.bg-status-active {
+    background-color: #d6f5e3 !important;
+    color: #16834a !important;
+}
+
+.badge.bg-status-inactive {
+    background-color: #fde8ec !important;
+    color: #c0243a !important;
+}
+
+.badge.bg-status-pending {
+    background-color: #fdeccf !important;
+    color: #a86a00 !important;
+}
+
+.badge.bg-status-partial {
+    background-color: #dbeafe !important;
+    color: #1d5fa8 !important;
 }
