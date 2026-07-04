@@ -1,40 +1,41 @@
+@using AccountsReceivable.Resources
 @model AccountsReceivable.Models.Receivable
 
 @{
-    ViewBag.Title = "Delete Receivable";
+    ViewBag.Title = Lang.T("TitleDeleteReceivable");
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <a class="btn btn-primary fw-bold" href="@Url.Action("Index", "Receivables")">
-        <i class="bi bi-arrow-left"></i> BACK
+        <i class="bi bi-arrow-left"></i> @Lang.T("Back")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label text-danger">Accounts Receivable</div>
-        <h1 class="h3 fw-bold m-0 text-danger"><span>Delete</span> receivable?</h1>
+        <div class="page-label text-danger">@Lang.T("LabelAR")</div>
+        <h1 class="h3 fw-bold m-0 text-danger">@Lang.T("TitleDeleteReceivable")</h1>
     </div>
     <div style="min-width:140px;"></div>
 </div>
 
 <div class="card border-top border-danger border-3">
     <div class="card-header bg-white">
-        <span class="card-header-title text-danger"><i class="bi bi-exclamation-triangle"></i> Confirm Deletion</span>
+        <span class="card-header-title text-danger"><i class="bi bi-exclamation-triangle"></i> @Lang.T("ConfirmDeletion")</span>
     </div>
     <div class="card-body">
         <p class="text-muted mb-4">
-            Are you sure you want to delete the following receivable? This action cannot be undone.
+            @Lang.T("ConfirmDeleteReceivableText")
         </p>
 
         <div class="row g-3">
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Account Number</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldAccountNumber")</label>
                 <input class="form-control" value="@Model.AccountNumber" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Customer</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldCustomer")</label>
                 <input class="form-control" value="@Model.Customer?.Name" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Total Amount</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldTotalAmount")</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.TotalAmount)" readonly />
             </div>
         </div>
@@ -45,10 +46,10 @@
             @Html.HiddenFor(m => m.ReceivableId)
             <div class="d-flex gap-2 mt-4">
                 <button type="submit" class="btn btn-danger fw-bold">
-                    <i class="bi bi-trash"></i> YES, DELETE
+                    <i class="bi bi-trash"></i> @Lang.T("YesDelete")
                 </button>
                 <a href="@Url.Action("Index", "Receivables")" class="btn btn-outline-secondary">
-                    Cancel
+                    @Lang.T("Cancel")
                 </a>
             </div>
         }

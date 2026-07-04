@@ -1,52 +1,53 @@
+@using AccountsReceivable.Resources
 @model AccountsReceivable.Models.Employee
 
 @{
-    ViewBag.Title = "Employee Details";
+    ViewBag.Title = Lang.T("TitleDetailsOf");
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <a class="btn btn-primary fw-bold" href="@Url.Action("Index", "Employees")">
-        <i class="bi bi-arrow-left"></i> BACK
+        <i class="bi bi-arrow-left"></i> @Lang.T("Back")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label">Employees</div>
-        <h1 class="h3 fw-bold m-0"><span>Details</span> of @Model.FirstName @Model.LastName</h1>
+        <div class="page-label">@Lang.T("LabelEmployees")</div>
+        <h1 class="h3 fw-bold m-0">@Lang.T("TitleDetailsOf") @Model.FirstName @Model.LastName</h1>
     </div>
     <div style="min-width:140px; text-align:right;">
         <a class="btn btn-success btn-sm fw-bold" href="@Url.Action("Edit", "Employees", new { id = Model.EmployeeId })">
-            <i class="bi bi-pencil"></i> EDIT
+            <i class="bi bi-pencil"></i> @Lang.T("Edit")
         </a>
     </div>
 </div>
 
 <div class="card">
     <div class="card-header bg-white">
-        <span class="card-header-title"><i class="bi bi-info-circle"></i> Employee Information</span>
+        <span class="card-header-title"><i class="bi bi-info-circle"></i> @Lang.T("SectionEmployeeInfo")</span>
     </div>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Employee Code</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldEmployeeCode")</label>
                 <input class="form-control" value="@Model.EmployeeCode" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Full Name</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldFullName")</label>
                 <input class="form-control" value="@Model.FirstName @Model.LastName" readonly />
             </div>
             <div class="col-md-5">
-                <label class="form-label form-label-sm">Email</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldEmail")</label>
                 <input class="form-control" value="@Model.Email" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Phone</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldPhone")</label>
                 <input class="form-control" value="@Model.Phone" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Position</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldPosition")</label>
                 <input class="form-control" value="@Model.Position" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Hire Date</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldHireDate")</label>
                 <input class="form-control" value="@Model.HireDate.ToString("MMM dd, yyyy")" readonly />
             </div>
         </div>

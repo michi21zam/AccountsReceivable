@@ -1,36 +1,37 @@
+@using AccountsReceivable.Resources
 @model AccountsReceivable.Models.Payment
 
 @{
-    ViewBag.Title = "Payment Details";
+    ViewBag.Title = Lang.T("TitlePaymentDetails");
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <a class="btn btn-primary fw-bold" href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })">
-        <i class="bi bi-arrow-left"></i> BACK
+        <i class="bi bi-arrow-left"></i> @Lang.T("Back")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label">Payments</div>
-        <h1 class="h3 fw-bold m-0"><span>Details</span> of payment</h1>
+        <div class="page-label">@Lang.T("LabelPayments")</div>
+        <h1 class="h3 fw-bold m-0">@Lang.T("TitlePaymentDetails")</h1>
     </div>
     <div style="min-width:140px;"></div>
 </div>
 
 <div class="card">
     <div class="card-header bg-white">
-        <span class="card-header-title"><i class="bi bi-info-circle"></i> Payment Information</span>
+        <span class="card-header-title"><i class="bi bi-info-circle"></i> @Lang.T("SectionPaymentInfo")</span>
     </div>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Payment Date</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldPaymentDate")</label>
                 <input class="form-control" value="@Model.PaymentDate.ToString("MMM dd, yyyy")" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Amount</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldAmount")</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.Amount)" readonly />
             </div>
             <div class="col-md-4">
-                <label class="form-label form-label-sm">Notes</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldNotes")</label>
                 <input class="form-control" value="@Model.Notes" readonly />
             </div>
         </div>

@@ -1,17 +1,18 @@
+@using AccountsReceivable.Resources
 @model AccountsReceivable.Models.ReceivableIndexViewModel
 @using AccountsReceivable.Models
 
 @{
-    ViewBag.Title = "Accounts Receivable";
+    ViewBag.Title = Lang.T("BrandTitle");
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <a class="btn btn-success fw-bold" href="@Url.Action("Create", "Receivables")">
-        <i class="bi bi-plus-lg"></i> CREATE NEW
+        <i class="bi bi-plus-lg"></i> @Lang.T("CreateNew")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label">Accounts Receivable</div>
-        <h1 class="page-title h3 fw-bold m-0"><span>Review</span> accounts receivable</h1>
+        <div class="page-label">@Lang.T("LabelAR")</div>
+        <h1 class="page-title h3 fw-bold m-0">@Lang.T("TitleReviewReceivables")</h1>
     </div>
     <div style="min-width:140px;"></div>
 </div>
@@ -22,30 +23,30 @@
         <div class="card-body">
             <div class="row g-3 align-items-end">
                 <div class="col-md-2">
-                    <label class="form-label form-label-sm">Account Number</label>
+                    <label class="form-label form-label-sm">@Lang.T("FieldAccountNumber")</label>
                     @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", placeholder = "AR-001" })
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label form-label-sm">Customer</label>
+                    <label class="form-label form-label-sm">@Lang.T("FieldCustomer")</label>
                     @Html.DropDownListFor(m => m.CustomerId,
-                        new SelectList(Model.Customers, "CustomerId", "Name", Model.CustomerId), "All customers", new { @class = "form-select" })
+                        new SelectList(Model.Customers, "CustomerId", "Name", Model.CustomerId), Lang.T("AllCustomers"), new { @class = "form-select" })
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label form-label-sm">Employee</label>
+                    <label class="form-label form-label-sm">@Lang.T("FieldEmployee")</label>
                     @Html.DropDownListFor(m => m.EmployeeId,
-                        new SelectList(Model.Employees, "EmployeeId", "FirstName", Model.EmployeeId), "All employees", new { @class = "form-select" })
+                        new SelectList(Model.Employees, "EmployeeId", "FirstName", Model.EmployeeId), Lang.T("AllEmployees"), new { @class = "form-select" })
                 </div>
                 <div class="col-md-1">
-                    <label class="form-label form-label-sm">Status</label>
+                    <label class="form-label form-label-sm">@Lang.T("FieldStatus")</label>
                     @Html.DropDownListFor(m => m.Status,
-                        new SelectList(Enum.GetValues(typeof(ReceivableStatus))), "All", new { @class = "form-select" })
+                        new SelectList(Enum.GetValues(typeof(ReceivableStatus))), Lang.T("All"), new { @class = "form-select" })
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label form-label-sm">Date From</label>
+                    <label class="form-label form-label-sm">@Lang.T("FieldDateFrom")</label>
                     @Html.TextBoxFor(m => m.DateFrom, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label form-label-sm">Date To</label>
+                    <label class="form-label form-label-sm">@Lang.T("FieldDateTo")</label>
                     @Html.TextBoxFor(m => m.DateTo, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
                 </div>
                 <div class="col-md-1 d-flex gap-2">
@@ -66,14 +67,14 @@
         <table class="table table-hover align-middle mb-0">
             <thead>
                 <tr>
-                    <th>Account #</th>
-                    <th>Customer</th>
-                    <th>Employee</th>
-                    <th>Issue Date</th>
-                    <th>Due Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th class="text-center">Actions</th>
+                    <th>@Lang.T("ColAccountNum")</th>
+                    <th>@Lang.T("FieldCustomer")</th>
+                    <th>@Lang.T("FieldEmployee")</th>
+                    <th>@Lang.T("FieldIssueDate")</th>
+                    <th>@Lang.T("FieldDueDate")</th>
+                    <th>@Lang.T("FieldTotalAmount")</th>
+                    <th>@Lang.T("FieldStatus")</th>
+                    <th class="text-center">@Lang.T("Actions")</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,7 +83,7 @@
                     <tr>
                         <td colspan="8" class="text-center text-muted py-5">
                             <i class="bi bi-inbox d-block fs-1 opacity-25 mb-2"></i>
-                            No receivables found.
+                            @Lang.T("NoReceivablesFound")
                         </td>
                     </tr>
                 }

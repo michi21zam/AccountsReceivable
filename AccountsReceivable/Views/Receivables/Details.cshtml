@@ -1,68 +1,69 @@
+@using AccountsReceivable.Resources
 @model AccountsReceivable.Models.ReceivableDetailsViewModel
 
 @{
-    ViewBag.Title = "Receivable Details";
+    ViewBag.Title = Lang.T("TitleReceivableDetails");
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <a class="btn btn-primary fw-bold" href="@Url.Action("Index", "Receivables")">
-        <i class="bi bi-arrow-left"></i> BACK
+        <i class="bi bi-arrow-left"></i> @Lang.T("Back")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label">Accounts Receivable</div>
-        <h1 class="h3 fw-bold m-0"><span>Details</span> of account #@Model.AccountNumber</h1>
+        <div class="page-label">@Lang.T("LabelAR")</div>
+        <h1 class="h3 fw-bold m-0">@Lang.T("TitleReceivableDetails")@Model.AccountNumber</h1>
     </div>
     <div style="min-width:140px; text-align:right;">
         <a class="btn btn-success btn-sm fw-bold" href="@Url.Action("Edit", "Receivables", new { id = Model.ReceivableId })">
-            <i class="bi bi-pencil"></i> EDIT
+            <i class="bi bi-pencil"></i> @Lang.T("Edit")
         </a>
     </div>
 </div>
 
 <div class="card mb-4">
     <div class="card-header bg-white">
-        <span class="card-header-title"><i class="bi bi-info-circle"></i> Receivable Information</span>
+        <span class="card-header-title"><i class="bi bi-info-circle"></i> @Lang.T("SectionReceivableInfo")</span>
     </div>
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Account Number</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldAccountNumber")</label>
                 <input class="form-control" value="@Model.AccountNumber" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Customer</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldCustomer")</label>
                 <input class="form-control" value="@Model.CustomerName" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Employee</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldEmployee")</label>
                 <input class="form-control" value="@Model.EmployeeName" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Issue Date</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldIssueDate")</label>
                 <input class="form-control" value="@Model.IssueDate.ToString("MMM dd, yyyy")" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Due Date</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldDueDate")</label>
                 <input class="form-control" value="@Model.DueDate.ToString("MMM dd, yyyy")" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Total Amount</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldTotalAmount")</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.TotalAmount)" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Paid Amount</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldPaidAmount")</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.PaidAmount)" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Balance</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldBalance")</label>
                 <input class="form-control" value="@String.Format("{0:C}", Model.Balance)" readonly />
             </div>
             <div class="col-md-3">
-                <label class="form-label form-label-sm">Status</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldStatus")</label>
                 <input class="form-control" value="@Model.Status" readonly />
             </div>
             <div class="col-md-6">
-                <label class="form-label form-label-sm">Description</label>
+                <label class="form-label form-label-sm">@Lang.T("FieldDescription")</label>
                 <input class="form-control" value="@Model.Description" readonly />
             </div>
         </div>
@@ -72,11 +73,11 @@
 @* ── PAYMENTS TABLE ────────────────────────────────── *@
 <div class="d-flex align-items-center justify-content-between mb-3">
     <a class="btn btn-success btn-sm fw-bold" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
-        <i class="bi bi-plus-lg"></i> ADD PAYMENT
+        <i class="bi bi-plus-lg"></i> @Lang.T("AddPayment")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label">Payments</div>
-        <h2 class="h5 fw-bold m-0">Payment <span>History</span></h2>
+        <div class="page-label">@Lang.T("LabelPayments")</div>
+        <h2 class="h5 fw-bold m-0">@Lang.T("PaymentHistoryTitle")</h2>
     </div>
     <div style="min-width:140px;"></div>
 </div>
@@ -86,10 +87,10 @@
         <table class="table table-hover align-middle mb-0">
             <thead>
                 <tr>
-                    <th>Payment Date</th>
-                    <th>Amount</th>
-                    <th>Notes</th>
-                    <th class="text-center">Actions</th>
+                    <th>@Lang.T("FieldPaymentDate")</th>
+                    <th>@Lang.T("FieldAmount")</th>
+                    <th>@Lang.T("FieldNotes")</th>
+                    <th class="text-center">@Lang.T("Actions")</th>
                 </tr>
             </thead>
             <tbody>
@@ -120,7 +121,7 @@
                     <tr>
                         <td colspan="4" class="text-center text-muted py-5">
                             <i class="bi bi-cash-coin d-block fs-1 opacity-25 mb-2"></i>
-                            No payments recorded yet.
+                            @Lang.T("NoPaymentsRecorded")
                         </td>
                     </tr>
                 }

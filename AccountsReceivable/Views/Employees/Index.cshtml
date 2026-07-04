@@ -1,16 +1,17 @@
+@using AccountsReceivable.Resources
 @model IEnumerable<AccountsReceivable.Models.Employee>
 
 @{
-    ViewBag.Title = "Employees";
+    ViewBag.Title = Lang.T("NavEmployees");
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <a class="btn btn-success fw-bold" href="@Url.Action("Create", "Employees")">
-        <i class="bi bi-plus-lg"></i> CREATE NEW
+        <i class="bi bi-plus-lg"></i> @Lang.T("CreateNew")
     </a>
     <div class="text-center flex-grow-1">
-        <div class="page-label">Employees</div>
-        <h1 class="h3 fw-bold m-0"><span>Manage</span> employees</h1>
+        <div class="page-label">@Lang.T("LabelEmployees")</div>
+        <h1 class="h3 fw-bold m-0">@Lang.T("TitleManageEmployees")</h1>
     </div>
     <div style="min-width:140px;"></div>
 </div>
@@ -20,13 +21,13 @@
         <table class="table table-hover align-middle mb-0">
             <thead>
                 <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Position</th>
-                    <th>Hire Date</th>
-                    <th class="text-center">Actions</th>
+                    <th>@Lang.T("ColCode")</th>
+                    <th>@Lang.T("FieldName")</th>
+                    <th>@Lang.T("FieldEmail")</th>
+                    <th>@Lang.T("FieldPhone")</th>
+                    <th>@Lang.T("FieldPosition")</th>
+                    <th>@Lang.T("FieldHireDate")</th>
+                    <th class="text-center">@Lang.T("Actions")</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +50,7 @@
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 @using (Html.BeginForm("Delete", "Employees", FormMethod.Post,
-                                    new { @class = "d-inline", onsubmit = "return confirm('Delete this employee?');" }))
+                                    new { @class = "d-inline", onsubmit = "return confirm('" + Lang.T("ConfirmDeleteEmployeeJs") + "');" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     @Html.Hidden("id", item.EmployeeId)
@@ -66,7 +67,7 @@
                     <tr>
                         <td colspan="7" class="text-center text-muted py-5">
                             <i class="bi bi-person-badge d-block fs-1 opacity-25 mb-2"></i>
-                            No employees found.
+                            @Lang.T("NoEmployeesFound")
                         </td>
                     </tr>
                 }
