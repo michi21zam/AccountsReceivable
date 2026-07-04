@@ -5,73 +5,89 @@
     ViewBag.Title = Lang.T("TitleEditCustomer");
 }
 
-<div class="d-flex align-items-center justify-content-between mb-4">
-    <a class="btn btn-primary fw-bold" href="@Url.Action("Index", "Customers")">
-        <i class="bi bi-arrow-left"></i> @Lang.T("Back")
-    </a>
-    <div class="text-center flex-grow-1">
-        <div class="page-label">@Lang.T("LabelCustomers")</div>
-        <h1 class="h3 fw-bold m-0">@Lang.T("TitleEditCustomer")</h1>
-    </div>
-    <div style="min-width:140px;"></div>
-</div>
-
 @using (Html.BeginForm("Edit", "Customers", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.CustomerId)
 
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex gap-2">
+            <a class="btn btn-primary fw-bold" href="@Url.Action("Index", "Customers")">
+                <i class="bi bi-arrow-left"></i> @Lang.T("Back")
+            </a>
+
+            <button type="submit" class="btn btn-success fw-bold">
+                <i class="bi bi-save"></i> @Lang.T("Save")
+            </button>
+        </div>
+
+        <div class="text-center flex-grow-1">
+            <div class="page-label">@Lang.T("LabelCustomers")</div>
+            <h1 class="h3 fw-bold m-0">@Lang.T("TitleEditCustomer")</h1>
+        </div>
+
+        <div style="min-width:140px;"></div>
+    </div>
+
     <div class="card">
         <div class="card-header bg-white">
-            <span class="card-header-title"><i class="bi bi-info-circle"></i> @Lang.T("SectionCustomerInfo")</span>
+            <span class="card-header-title">
+                <i class="bi bi-info-circle"></i> @Lang.T("SectionCustomerInfo")
+            </span>
         </div>
+
         <div class="card-body">
 
             @Html.ValidationSummary(true, "", new { @class = "alert alert-danger py-2" })
 
             <div class="row g-3">
+
                 <div class="col-md-3">
                     <label class="form-label form-label-sm">@Lang.T("FieldCustomerCode")</label>
                     @Html.TextBoxFor(m => m.CustomerCode, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.CustomerCode, "", new { @class = "text-danger small" })
                 </div>
+
                 <div class="col-md-6">
                     <label class="form-label form-label-sm">@Lang.T("FieldName")</label>
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger small" })
                 </div>
+
                 <div class="col-md-3">
                     <label class="form-label form-label-sm">@Lang.T("FieldTaxId")</label>
                     @Html.TextBoxFor(m => m.TaxId, new { @class = "form-control" })
                 </div>
+
                 <div class="col-md-4">
                     <label class="form-label form-label-sm">@Lang.T("FieldEmail")</label>
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
                 </div>
+
                 <div class="col-md-4">
                     <label class="form-label form-label-sm">@Lang.T("FieldPhone")</label>
                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
                 </div>
+
                 <div class="col-md-4">
                     <label class="form-label form-label-sm">@Lang.T("FieldCreditLimit")</label>
-                    @Html.TextBoxFor(m => m.CreditLimit, new { @class = "form-control", type = "number", step = "0.01" })
+                    @Html.TextBoxFor(m => m.CreditLimit, new
+                    {
+                        @class = "form-control",
+                        type = "number",
+                        step = "0.01"
+                    })
                     @Html.ValidationMessageFor(m => m.CreditLimit, "", new { @class = "text-danger small" })
                 </div>
+
                 <div class="col-md-12">
                     <label class="form-label form-label-sm">@Lang.T("FieldAddress")</label>
                     @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
                 </div>
+
             </div>
 
-            <div class="d-flex gap-2 mt-4">
-                <button type="submit" class="btn btn-success fw-bold">
-                    <i class="bi bi-save"></i> @Lang.T("Save")
-                </button>
-                <a href="@Url.Action("Index", "Customers")" class="btn btn-outline-secondary">
-                    @Lang.T("Cancel")
-                </a>
-            </div>
         </div>
     </div>
 }

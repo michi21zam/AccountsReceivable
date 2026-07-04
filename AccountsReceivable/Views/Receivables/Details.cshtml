@@ -13,11 +13,11 @@
         <div class="page-label">@Lang.T("LabelAR")</div>
         <h1 class="h3 fw-bold m-0">@Lang.T("TitleReceivableDetails")@Model.AccountNumber</h1>
     </div>
-    <div style="min-width:140px; text-align:right;">
+    @*<div style="min-width:140px; text-align:right;">
         <a class="btn btn-success btn-sm fw-bold" href="@Url.Action("Edit", "Receivables", new { id = Model.ReceivableId })">
             <i class="bi bi-pencil"></i> @Lang.T("Edit")
         </a>
-    </div>
+    </div>*@
 </div>
 
 <div class="card mb-4">
@@ -72,13 +72,15 @@
 
 @* ── PAYMENTS TABLE ────────────────────────────────── *@
 <div class="d-flex align-items-center justify-content-between mb-3">
-    <a class="btn btn-success btn-sm fw-bold" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
+    <button type="button" class="btn btn-success btn-sm fw-bold" disabled>
         <i class="bi bi-plus-lg"></i> @Lang.T("AddPayment")
-    </a>
+    </button>
+
     <div class="text-center flex-grow-1">
         <div class="page-label">@Lang.T("LabelPayments")</div>
         <h2 class="h5 fw-bold m-0">@Lang.T("PaymentHistoryTitle")</h2>
     </div>
+
     <div style="min-width:140px;"></div>
 </div>
 
