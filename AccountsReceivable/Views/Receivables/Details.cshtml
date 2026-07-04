@@ -5,136 +5,140 @@
     ViewBag.Title = "Receivable Details";
 }
 
-<div class="page-header-section">
+<!-- Header con BACK, TITLE, EDIT -->
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <a class="btn-back" href="@Url.Action("Index", "Receivables")">
+        <a class="btn btn-info" href="@Url.Action("Index", "Receivables")">
             <i class="fa fa-arrow-left"></i> BACK
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Accounts Receivable</div>
-        <h1 class="page-title"><span>Details</span> of account #@Model.AccountNumber</h1>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Accounts Receivable</div>
+        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Details</span> of account #@Model.AccountNumber</h1>
     </div>
-    <div class="header-actions">
-        <a class="btn-create btn-create--compact" href="@Url.Action("Edit", "Receivables", new { id = Model.ReceivableId })">
+    <div>
+        <a class="btn btn-success" href="@Url.Action("Edit", "Receivables", new { id = Model.ReceivableId })">
             <i class="fa fa-pen"></i> EDIT
         </a>
     </div>
 </div>
 
-<div class="form-page-card">
-    <div class="form-page-header">
-        <i class="fa fa-circle-info"></i> Receivable Information
+<!-- RECEIVABLE INFORMATION CARD -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0 text-uppercase fw-bold" style="color: #0b5566; letter-spacing: 1px; font-size: 13px;">
+            <i class="fa fa-circle-info"></i> Receivable Information
+        </h5>
     </div>
-    <div class="form-row-grid">
-        <div class="float-field">
-            <label>Account Number</label>
-            <input class="float-input" value="@Model.AccountNumber" readonly />
-        </div>
-        <div class="float-field">
-            <label>Customer</label>
-            <input class="float-input" value="@Model.CustomerName" readonly />
-        </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Account Number</label>
+                <input class="form-control" value="@Model.AccountNumber" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Customer</label>
+                <input class="form-control" value="@Model.CustomerName" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Employee</label>
+                <input class="form-control" value="@Model.EmployeeName" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Issue Date</label>
+                <input class="form-control" value="@Model.IssueDate.ToString("MMM dd, yyyy")" readonly />
+            </div>
 
-        <div class="float-field">
-            <label>Employee</label>
-            <input class="float-input" value="@Model.EmployeeName" readonly />
-        </div>
-        <div class="float-field">
-            <label>Issue Date</label>
-            <input class="float-input" value="@Model.IssueDate.ToString("MMM dd, yyyy")" readonly />
-        </div>
-        <div class="float-field">
-            <label>Due Date</label>
-            <input class="float-input" value="@Model.DueDate.ToString("MMM dd, yyyy")" readonly />
-        </div>
-        <div class="float-field">
-            <label>Total Amount</label>
-            <input class="float-input" value="@String.Format("{0:C}", Model.TotalAmount)" readonly />
-        </div>
-        <div class="float-field">
-            <label>Paid Amount</label>
-            <input class="float-input" value="@String.Format("{0:C}", Model.PaidAmount)" readonly />
-        </div>
-        <div class="float-field">
-            <label>Balance</label>
-            <input class="float-input" value="@String.Format("{0:C}", Model.Balance)" readonly />
-        </div>
-        <div class="float-field">
-            <label>Status</label>
-            <input class="float-input" value="@Model.Status" readonly />
-        </div>
-        <div class="float-field grid-span-2">
-            <label>Description</label>
-            <input class="float-input" value="@Model.Description" readonly />
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Due Date</label>
+                <input class="form-control" value="@Model.DueDate.ToString("MMM dd, yyyy")" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Total Amount</label>
+                <input class="form-control" value="@String.Format("{0:C}", Model.TotalAmount)" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Paid Amount</label>
+                <input class="form-control" value="@String.Format("{0:C}", Model.PaidAmount)" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Balance</label>
+                <input class="form-control" value="@String.Format("{0:C}", Model.Balance)" readonly />
+            </div>
+
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Status</label>
+                <input class="form-control" value="@Model.Status" readonly />
+            </div>
+            <div class="col-lg-9">
+                <label class="form-label small fw-bold text-muted text-uppercase">Description</label>
+                <input class="form-control" value="@Model.Description" readonly />
+            </div>
         </div>
     </div>
 </div>
 
-@* ── PAYMENTS TABLE ────────────────────────────────── *@
-<div class="page-header-section page-header-section--compact">
+<!-- PAYMENTS SECTION -->
+<div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <a class="btn-create btn-create--compact" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
+        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
             <i class="fa fa-plus"></i> ADD PAYMENT
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Payments</div>
-        <h2 class="page-title page-title--small">Payment <span>History</span></h2>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 1px;">Payments</div>
+        <h4 class="h5 fw-bold mb-0">Payment <span style="color: #0b5566;">History</span></h4>
     </div>
-    <div class="header-actions"></div>
+    <div style="min-width: 100px;"></div>
 </div>
 
-<div class="table-card">
-    <table>
-        <thead>
-            <tr>
-                <th>Payment Date</th>
-                <th>Amount</th>
-                <th>Notes</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Payments != null && Model.Payments.Any(p => p.IsActive))
-            {
-                foreach (var payment in Model.Payments.Where(p => p.IsActive).OrderByDescending(p => p.PaymentDate))
+<!-- PAYMENTS TABLE -->
+<div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Notes</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Payments != null && Model.Payments.Any(p => p.IsActive))
+                {
+                    foreach (var payment in Model.Payments.Where(p => p.IsActive).OrderByDescending(p => p.PaymentDate))
+                    {
+                        <tr>
+                            <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
+                            <td>@String.Format("{0:C}", payment.Amount)</td>
+                            <td>@payment.Notes</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-info"
+                                   href="@Url.Action("Details", "Payments", new { id = payment.PaymentId })"
+                                   title="View">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-warning" title="Edit" disabled>
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" title="Delete" disabled>
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
-                        <td>@String.Format("{0:C}", payment.Amount)</td>
-                        <td>@payment.Notes</td>
-                        <td class="text-center">
-                            <!-- Botón habilitado: View -->
-                            <a class="action-btn action-view"
-                               href="@Url.Action("Details", "Payments", new { id = payment.PaymentId })"
-                               title="View">
-                                <i class="fa fa-eye"></i>
-                            </a>
-
-                            <!-- Botón Edit en readonly (disabled) -->
-                            <button type="button" class="action-btn action-edit" title="Edit" disabled>
-                                <i class="fa fa-pen"></i>
-                            </button>
-
-                            <!-- Botón Delete en readonly (disabled) -->
-                            <button type="button" class="action-btn action-delete" title="Delete" disabled>
-                                <i class="fa fa-trash"></i>
-                            </button>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="fa fa-hand-holding-dollar" style="font-size: 36px; opacity: .35; display: block; margin-bottom: 12px;"></i>
+                            No payments recorded yet.
                         </td>
                     </tr>
-
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="4" class="no-data-cell">
-                        <i class="fa fa-hand-holding-dollar no-data-icon"></i>
-                        No payments recorded yet.
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

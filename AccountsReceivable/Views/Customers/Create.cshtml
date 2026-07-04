@@ -4,72 +4,83 @@
     ViewBag.Title = "Create Customer";
 }
 
-<div class="page-header-section">
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <a class="btn-back" href="@Url.Action("Index", "Customers")">
+        <a class="btn btn-info" href="@Url.Action("Index", "Customers")">
             <i class="fa fa-arrow-left"></i> BACK
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Customers</div>
-        <h1 class="page-title"><span>Create</span> new customer</h1>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Customers</div>
+        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Create</span> new customer</h1>
     </div>
-    <div class="header-spacer"></div>
+    <div style="min-width: 100px;"></div>
 </div>
 
 @using (Html.BeginForm("Create", "Customers", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-page-card">
-        <div class="form-page-header">
-            <i class="fa fa-circle-info"></i> Customer Information
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom">
+            <h5 class="mb-0 text-uppercase fw-bold" style="color: #0b5566; letter-spacing: 1px; font-size: 13px;">
+                <i class="fa fa-circle-info"></i> Customer Information
+            </h5>
         </div>
+        <div class="card-body">
+            @if (ViewData.ModelState.Count > 0 && !ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @Html.ValidationSummary(false)
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
 
-        @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
-
-        <div class="form-row-grid">
-            <div class="float-field">
-                <label>Customer Code</label>
-                @Html.TextBoxFor(m => m.CustomerCode, new { @class = "float-input", placeholder = " " })
-                @Html.ValidationMessageFor(m => m.CustomerCode, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field grid-span-2">
-                <label>Name</label>
-                @Html.TextBoxFor(m => m.Name, new { @class = "float-input", placeholder = " " })
-                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Tax Id</label>
-                @Html.TextBoxFor(m => m.TaxId, new { @class = "float-input", placeholder = " " })
-            </div>
-            <div class="float-field">
-                <label>Email</label>
-                @Html.TextBoxFor(m => m.Email, new { @class = "float-input", placeholder = " " })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Phone</label>
-                @Html.TextBoxFor(m => m.Phone, new { @class = "float-input", placeholder = " " })
-            </div>
-            <div class="float-field grid-span-2">
-                <label>Address</label>
-                @Html.TextBoxFor(m => m.Address, new { @class = "float-input", placeholder = " " })
-            </div>
-            <div class="float-field">
-                <label>Credit Limit</label>
-                @Html.TextBoxFor(m => m.CreditLimit, new { @class = "float-input", type = "number", step = "0.01", placeholder = " " })
-                @Html.ValidationMessageFor(m => m.CreditLimit, "", new { @class = "field-error" })
+            <div class="row g-3">
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Customer Code</label>
+                    @Html.TextBoxFor(m => m.CustomerCode, new { @class = "form-control", placeholder = " " })
+                    @Html.ValidationMessageFor(m => m.CustomerCode, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Name</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = " " })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Tax Id</label>
+                    @Html.TextBoxFor(m => m.TaxId, new { @class = "form-control", placeholder = " " })
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = " " })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Phone</label>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = " " })
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Credit Limit</label>
+                    @Html.TextBoxFor(m => m.CreditLimit, new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" })
+                    @Html.ValidationMessageFor(m => m.CreditLimit, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-12">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Address</label>
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = " " })
+                </div>
             </div>
         </div>
-
-        <div class="form-page-actions">
-            <button type="submit" class="btn-create">
-                <i class="fa fa-floppy-disk"></i> SAVE
-            </button>
-            <a href="@Url.Action("Index", "Customers")" class="btn-back ml-10">
-                Cancel
-            </a>
+        <div class="card-footer bg-white border-top">
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-floppy-disk"></i> SAVE
+                </button>
+                <a href="@Url.Action("Index", "Customers")" class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
         </div>
     </div>
 }

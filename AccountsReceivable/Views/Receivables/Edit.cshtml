@@ -5,17 +5,18 @@
     ViewBag.Title = "Edit Receivable";
 }
 
-<div class="page-header-section">
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <a class="btn-back" href="@Url.Action("Index", "Receivables")">
+        <a class="btn btn-info" href="@Url.Action("Index", "Receivables")">
             <i class="fa fa-arrow-left"></i> BACK
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Accounts Receivable</div>
-        <h1 class="page-title"><span>Edit</span> receivable settings</h1>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Accounts Receivable</div>
+        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Edit</span> receivable settings</h1>
     </div>
-    <div class="header-spacer"></div>
+    <div style="min-width: 100px;"></div>
 </div>
 
 @using (Html.BeginForm("Edit", "Receivables", FormMethod.Post))
@@ -23,126 +24,137 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ReceivableId)
 
-    <div class="form-page-card">
-        <div class="form-page-header">
-            <i class="fa fa-circle-info"></i> Receivable Information
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white border-bottom">
+            <h5 class="mb-0 text-uppercase fw-bold" style="color: #0b5566; letter-spacing: 1px; font-size: 13px;">
+                <i class="fa fa-circle-info"></i> Receivable Information
+            </h5>
         </div>
+        <div class="card-body">
+            @if (ViewData.ModelState.Count > 0 && !ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @Html.ValidationSummary(false)
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
 
-        @Html.ValidationSummary(true, "", new { @class = "validation-summary" })
+            <div class="row g-3">
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Account Number</label>
+                    @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", placeholder = " " })
+                    @Html.ValidationMessageFor(m => m.AccountNumber, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Customer</label>
+                    @Html.DropDownListFor(m => m.CustomerId,
+                             new SelectList((IEnumerable<Customer>)ViewBag.Customers, "CustomerId", "Name", Model.CustomerId),
+                             new { @class = "form-select" })
+                    @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Employee</label>
+                    @Html.DropDownListFor(m => m.EmployeeId,
+                             new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName", Model.EmployeeId),
+                             new { @class = "form-select" })
+                    @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Issue Date</label>
+                    @Html.TextBoxFor(m => m.IssueDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.IssueDate, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
 
-        <div class="form-row-grid">
-            <div class="float-field">
-                <label>Account Number</label>
-                @Html.TextBoxFor(m => m.AccountNumber, new { @class = "float-input", placeholder = " " })
-                @Html.ValidationMessageFor(m => m.AccountNumber, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Customer</label>
-                @Html.DropDownListFor(m => m.CustomerId,
-                         new SelectList((IEnumerable<Customer>)ViewBag.Customers, "CustomerId", "Name", Model.CustomerId),
-                         new { @class = "float-select" })
-                @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Employee</label>
-                @Html.DropDownListFor(m => m.EmployeeId,
-                         new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName", Model.EmployeeId),
-                         new { @class = "float-select" })
-                @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Issue Date</label>
-                @Html.TextBoxFor(m => m.IssueDate, "{0:yyyy-MM-dd}", new { @class = "float-input", type = "date" })
-                @Html.ValidationMessageFor(m => m.IssueDate, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Due Date</label>
-                @Html.TextBoxFor(m => m.DueDate, "{0:yyyy-MM-dd}", new { @class = "float-input", type = "date" })
-                @Html.ValidationMessageFor(m => m.DueDate, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field">
-                <label>Total Amount</label>
-                @Html.TextBoxFor(m => m.TotalAmount, new { @class = "float-input", type = "number", step = "0.01", placeholder = " " })
-                @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @class = "field-error" })
-            </div>
-            <div class="float-field grid-span-2">
-                <label>Description</label>
-                @Html.TextBoxFor(m => m.Description, new { @class = "float-input", placeholder = " " })
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Due Date</label>
+                    @Html.TextBoxFor(m => m.DueDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.DueDate, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Total Amount</label>
+                    @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00" })
+                    @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @class = "text-danger small mt-1 d-block" })
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Description</label>
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = " " })
+                </div>
             </div>
         </div>
-
-        <div class="form-page-actions">
-            <button type="submit" class="btn-create">
-                <i class="fa fa-floppy-disk"></i> SAVE
-            </button>
-            <a href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })" class="btn-back ml-10">
-                Cancel
-            </a>
+        <div class="card-footer bg-white border-top">
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-floppy-disk"></i> SAVE
+                </button>
+                <a href="@Url.Action("Details", "Receivables", new { id = Model.ReceivableId })" class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
         </div>
     </div>
 }
 
-@* ── PAYMENTS TABLE ────────────────────────────────── *@
-<div class="page-header-section page-header-section--compact">
+<!-- PAYMENTS SECTION -->
+<div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <a class="btn-create btn-create--compact" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
+        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Payments", new { receivableId = Model.ReceivableId })">
             <i class="fa fa-plus"></i> ADD PAYMENT
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Payments</div>
-        <h2 class="page-title page-title--small">Payment <span>History</span></h2>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 1px;">Payments</div>
+        <h4 class="h5 fw-bold mb-0">Payment <span style="color: #0b5566;">History</span></h4>
     </div>
+    <div style="min-width: 100px;"></div>
 </div>
 
-<div class="table-card">
-    <table>
-        <thead>
-            <tr>
-                <th>Payment Date</th>
-                <th>Amount</th>
-                <th>Notes</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Payments != null && Model.Payments.Any(p => p.IsActive))
-            {
-                foreach (var payment in Model.Payments.Where(p => p.IsActive).OrderByDescending(p => p.PaymentDate))
+<div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Notes</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Payments != null && Model.Payments.Any(p => p.IsActive))
+                {
+                    foreach (var payment in Model.Payments.Where(p => p.IsActive).OrderByDescending(p => p.PaymentDate))
+                    {
+                        <tr>
+                            <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
+                            <td>@String.Format("{0:C}", payment.Amount)</td>
+                            <td>@payment.Notes</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", "Payments", new { id = payment.PaymentId })" title="Edit">
+                                    <i class="fa fa-pen"></i>
+                                </a>
+                                @using (Html.BeginForm("Delete", "Payments", FormMethod.Post,
+                                    new { @class = "d-inline", onsubmit = "return confirm('Delete this payment?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", payment.PaymentId)
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
-                        <td>@String.Format("{0:C}", payment.Amount)</td>
-                        <td>@payment.Notes</td>
-                        <td class="text-center">
-                            <a class="action-btn action-edit"
-                               href="@Url.Action("Edit", "Payments", new { id = payment.PaymentId })"
-                               title="Edit">
-                                <i class="fa fa-pen"></i>
-                            </a>
-                            @using (Html.BeginForm("Delete", "Payments", FormMethod.Post,
-                                new { @class = "inline-form", onsubmit = "return confirm('Delete this payment?');" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("id", payment.PaymentId)
-                                <button type="submit" class="action-btn action-delete" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            }
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="fa fa-hand-holding-dollar" style="font-size: 36px; opacity: .35; display: block; margin-bottom: 12px;"></i>
+                            No payments recorded yet.
                         </td>
                     </tr>
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="4" class="no-data-cell">
-                        <i class="fa fa-hand-holding-dollar no-data-icon"></i>
-                        No payments recorded yet.
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
-

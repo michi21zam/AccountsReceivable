@@ -4,51 +4,56 @@
     ViewBag.Title = "Employee Details";
 }
 
-<div class="page-header-section">
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <a class="btn-back" href="@Url.Action("Index", "Employees")">
+        <a class="btn btn-info" href="@Url.Action("Index", "Employees")">
             <i class="fa fa-arrow-left"></i> BACK
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Employees</div>
-        <h1 class="page-title"><span>Details</span> of @Model.FirstName @Model.LastName</h1>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Employees</div>
+        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Details</span> of @Model.FirstName @Model.LastName</h1>
     </div>
-    <div class="header-actions">
-        <a class="btn-create btn-create--compact" href="@Url.Action("Edit", "Employees", new { id = Model.EmployeeId })">
+    <div>
+        <a class="btn btn-success" href="@Url.Action("Edit", "Employees", new { id = Model.EmployeeId })">
             <i class="fa fa-pen"></i> EDIT
         </a>
     </div>
 </div>
 
-<div class="form-page-card">
-    <div class="form-page-header">
-        <i class="fa fa-circle-info"></i> Employee Information
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0 text-uppercase fw-bold" style="color: #0b5566; letter-spacing: 1px; font-size: 13px;">
+            <i class="fa fa-circle-info"></i> Employee Information
+        </h5>
     </div>
-    <div class="form-row-grid">
-        <div class="float-field">
-            <label>Employee Code</label>
-            <input class="float-input" value="@Model.EmployeeCode" readonly />
-        </div>
-        <div class="float-field">
-            <label>Full Name</label>
-            <input class="float-input" value="@Model.FirstName @Model.LastName" readonly />
-        </div>
-        <div class="float-field">
-            <label>Email</label>
-            <input class="float-input" value="@Model.Email" readonly />
-        </div>
-        <div class="float-field">
-            <label>Phone</label>
-            <input class="float-input" value="@Model.Phone" readonly />
-        </div>
-        <div class="float-field">
-            <label>Position</label>
-            <input class="float-input" value="@Model.Position" readonly />
-        </div>
-        <div class="float-field">
-            <label>Hire Date</label>
-            <input class="float-input" value="@Model.HireDate.ToString("MMM dd, yyyy")" readonly />
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Employee Code</label>
+                <input class="form-control" value="@Model.EmployeeCode" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Full Name</label>
+                <input class="form-control" value="@Model.FirstName @Model.LastName" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+                <input class="form-control" value="@Model.Email" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Phone</label>
+                <input class="form-control" value="@Model.Phone" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Position</label>
+                <input class="form-control" value="@Model.Position" readonly />
+            </div>
+            <div class="col-lg-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Hire Date</label>
+                <input class="form-control" value="@Model.HireDate.ToString("MMM dd, yyyy")" readonly />
+            </div>
         </div>
     </div>
 </div>

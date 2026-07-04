@@ -4,73 +4,76 @@
     ViewBag.Title = "Employees";
 }
 
-<div class="page-header-section">
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <a class="btn-create" href="@Url.Action("Create", "Employees")">
+        <a class="btn btn-success" href="@Url.Action("Create", "Employees")">
             <i class="fa fa-plus"></i> CREATE NEW
         </a>
     </div>
-    <div class="page-header-titles">
-        <div class="page-label">Employees</div>
-        <h1 class="page-title"><span>Manage</span> employees</h1>
+    <div class="text-center flex-grow-1">
+        <div class="text-muted text-uppercase small fw-bold" style="letter-spacing: 2px;">Employees</div>
+        <h1 class="h3 fw-bold"><span style="color: #0b5566;">Manage</span> employees</h1>
     </div>
-    <div class="header-spacer"></div>
+    <div style="min-width: 120px;"></div>
 </div>
 
-<div class="table-card">
-    <table>
-        <thead>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Position</th>
-                <th>Hire Date</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null && Model.Any())
-            {
-                foreach (var item in Model)
+<div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Position</th>
+                    <th>Hire Date</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.EmployeeCode</td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Position</td>
+                            <td>@item.HireDate.ToString("MMM dd, yyyy")</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-info" href="@Url.Action("Details", "Employees", new { id = item.EmployeeId })" title="Details">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", "Employees", new { id = item.EmployeeId })" title="Edit">
+                                    <i class="fa fa-pen"></i>
+                                </a>
+                                @using (Html.BeginForm("Delete", "Employees", FormMethod.Post,
+                                    new { @class = "d-inline", onsubmit = "return confirm('Delete this employee?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", item.EmployeeId)
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@item.EmployeeCode</td>
-                        <td>@item.FirstName @item.LastName</td>
-                        <td>@item.Email</td>
-                        <td>@item.Phone</td>
-                        <td>@item.Position</td>
-                        <td>@item.HireDate.ToString("MMM dd, yyyy")</td>
-                        <td class="text-center">
-                            <a class="action-btn action-view" href="@Url.Action("Details", "Employees", new { id = item.EmployeeId })" title="Details">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <a class="action-btn action-edit" href="@Url.Action("Edit", "Employees", new { id = item.EmployeeId })" title="Edit">
-                                <i class="fa fa-pen"></i>
-                            </a>
-                            @using (Html.BeginForm("Delete", "Employees", FormMethod.Post,
-                                new { @class = "inline-form", onsubmit = "return confirm('Delete this employee?');" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("id", item.EmployeeId)
-                                <button type="submit" class="action-btn action-delete" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            }
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="fa fa-user-tie" style="font-size: 36px; opacity: .35; display: block; margin-bottom: 12px;"></i>
+                            No employees found.
                         </td>
                     </tr>
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="7" class="no-data-cell">
-                        <i class="fa fa-user-tie no-data-icon"></i>
-                        No employees found.
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
