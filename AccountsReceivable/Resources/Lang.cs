@@ -128,7 +128,7 @@ namespace AccountsReceivable.Resources
                 "El Monto Total supera el Límite de Crédito del cliente ({0}).");
             Add("AvailableCreditLimit", "Available credit limit:", "Límite de crédito disponible:");
 
-            // ---------- Validaciones ----------
+            // ---------- Validations ----------
             Add("ErrorExceedsCreditLimit",
                 "Total Amount exceeds the customer's Credit Limit ({0}).",
                 "El Monto Total supera el Límite de Crédito del cliente ({0}).");

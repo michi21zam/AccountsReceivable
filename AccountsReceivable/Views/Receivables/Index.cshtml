@@ -22,7 +22,7 @@
     <div class="card mb-4">
         <div class="card-body">
             <div class="row g-3 align-items-end">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <label class="form-label form-label-sm">@Lang.T("FieldAccountNumber")</label>
                     @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", placeholder = "AR-001" })
                 </div>
@@ -36,7 +36,7 @@
                     @Html.DropDownListFor(m => m.EmployeeId,
                         new SelectList(Model.Employees, "EmployeeId", "FirstName", Model.EmployeeId), Lang.T("AllEmployees"), new { @class = "form-select" })
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label class="form-label form-label-sm">@Lang.T("FieldStatus")</label>
                     @Html.DropDownListFor(m => m.Status,
                         new SelectList(Enum.GetValues(typeof(ReceivableStatus))), Lang.T("All"), new { @class = "form-select" })

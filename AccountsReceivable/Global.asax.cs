@@ -23,7 +23,7 @@ namespace AccountsReceivable
                 lang = cookie.Value;
             }
 
-            var culture = new CultureInfo(lang);
+            var culture = new CultureInfo(lang == "es" ? "es-CR" : "en-US");
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
         }
