@@ -153,6 +153,13 @@ namespace AccountsReceivable.Controllers
         public async Task<ActionResult> Create(
             [Bind(Include = "AccountNumber,CustomerId,EmployeeId,IssueDate,DueDate,TotalAmount,Description")] Receivable receivable)
         {
+            var customer = await db.Customers.FindAsync(receivable.CustomerId);
+            if (customer != null && receivable.TotalAmount > customer.CreditLimit)
+            {
+                ModelState.AddModelError("TotalAmount",
+                    string.Format(AccountsReceivable.Resources.Lang.T("ErrorExceedsCreditLimit"), customer.CreditLimit.ToString("C")));
+            }
+
             if (ModelState.IsValid)
             {
                 receivable.IsActive = true;
@@ -177,7 +184,7 @@ namespace AccountsReceivable.Controllers
             var receivable = await db.Receivables
                 .Include(r => r.Customer)
                 .Include(r => r.Employee)
-                .Include(r=> r.Payments)
+                .Include(r => r.Payments)
                 .FirstOrDefaultAsync(r => r.ReceivableId == id.Value);
 
             if (receivable == null)

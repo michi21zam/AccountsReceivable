@@ -37,16 +37,21 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label form-label-sm">@Lang.T("FieldCustomer")</label>
-                    @Html.DropDownListFor(m => m.CustomerId,
-                        new SelectList((IEnumerable<Customer>)ViewBag.Customers, "CustomerId", "Name"),
-                        Lang.T("SelectCustomer"), new { @class = "form-select" })
+                    <select id="CustomerId" name="CustomerId" class="form-select">
+                        <option value="">@Lang.T("SelectCustomer")</option>
+                        @foreach (var c in (IEnumerable<Customer>)ViewBag.Customers)
+                        {
+                            <option value="@c.CustomerId" data-credit-limit="@c.CreditLimit.ToString(System.Globalization.CultureInfo.InvariantCulture)">@c.Name</option>
+                        }
+                    </select>
                     @Html.ValidationMessageFor(m => m.CustomerId, "", new { @class = "text-danger small" })
+                    <div id="creditLimitInfo" class="form-text"></div>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label form-label-sm">@Lang.T("FieldEmployee")</label>
                     @Html.DropDownListFor(m => m.EmployeeId,
-                        new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName"),
-                        Lang.T("SelectEmployee"), new { @class = "form-select" })
+                             new SelectList((IEnumerable<Employee>)ViewBag.Employees, "EmployeeId", "FirstName"),
+                             Lang.T("SelectEmployee"), new { @class = "form-select" })
                     @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "text-danger small" })
                 </div>
                 <div class="col-md-3">
@@ -61,8 +66,9 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label form-label-sm">@Lang.T("FieldTotalAmount")</label>
-                    @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", type = "number", step = "0.01" })
+                    @Html.TextBoxFor(m => m.TotalAmount, new { @class = "form-control", type = "number", step = "0.01", id = "TotalAmount" })
                     @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @class = "text-danger small" })
+                    <div id="creditLimitError" class="text-danger small" style="display:none;"></div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label form-label-sm">@Lang.T("FieldDescription")</label>
@@ -81,3 +87,54 @@
         </div>
     </div>
 }
+
+<script>
+(function () {
+    var customerSelect = document.getElementById("CustomerId");
+    var totalAmountInput = document.getElementById("TotalAmount");
+    var creditLimitInfo = document.getElementById("creditLimitInfo");
+    var creditLimitError = document.getElementById("creditLimitError");
+    var form = customerSelect.closest("form");
+
+    var errorMsgTemplate = @Html.Raw(Json.Encode(Lang.T("ErrorExceedsCreditLimit")));
+    var availableLabel = @Html.Raw(Json.Encode(Lang.T("AvailableCreditLimit")));
+
+    function getCreditLimit() {
+        var opt = customerSelect.options[customerSelect.selectedIndex];
+        var val = opt ? opt.getAttribute("data-credit-limit") : null;
+        return val ? parseFloat(val) : null;
+    }
+
+    function validate() {
+        var limit = getCreditLimit();
+        var amount = parseFloat(totalAmountInput.value);
+
+        if (limit !== null) {
+            creditLimitInfo.textContent = availableLabel + " " + limit.toFixed(2);
+        } else {
+            creditLimitInfo.textContent = "";
+        }
+
+        if (limit !== null && !isNaN(amount) && amount > limit) {
+            creditLimitError.textContent = errorMsgTemplate.replace("{0}", limit.toFixed(2));
+            creditLimitError.style.display = "block";
+            totalAmountInput.setCustomValidity(creditLimitError.textContent);
+            return false;
+        }
+
+        creditLimitError.style.display = "none";
+        totalAmountInput.setCustomValidity("");
+        return true;
+    }
+
+    customerSelect.addEventListener("change", validate);
+    totalAmountInput.addEventListener("input", validate);
+
+    form.addEventListener("submit", function (e) {
+        if (!validate()) {
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+

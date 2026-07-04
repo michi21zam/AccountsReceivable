@@ -123,6 +123,10 @@ namespace AccountsReceivable.Resources
             Add("ConfirmDeleteEmployeeText", "Are you sure you want to delete this employee? This action cannot be undone.", "¿Está seguro de que desea eliminar este empleado? Esta acción no se puede deshacer.");
             Add("ConfirmDeleteEmployeeJs", "Delete this employee?", "¿Eliminar este empleado?");
             Add("NoEmployeesFound", "No employees found.", "No se encontraron empleados.");
+            Add("ErrorExceedsCreditLimit",
+                "Total Amount exceeds the customer's Credit Limit ({0}).",
+                "El Monto Total supera el Límite de Crédito del cliente ({0}).");
+            Add("AvailableCreditLimit", "Available credit limit:", "Límite de crédito disponible:");
 
             All["en"] = En;
             All["es"] = Es;
